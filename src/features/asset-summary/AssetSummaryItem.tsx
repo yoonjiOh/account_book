@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { NumericFormat } from "react-number-format";
 import { AssetIcon, LiabilityIcon } from "@/components/icons";
 
@@ -12,8 +13,13 @@ const AssetSummaryItem: React.FC<AssetSummaryItemProps> = ({
   assetName,
   assetValue,
 }) => {
+  const navigate = useNavigate();
   return (
-    <div className="flex items-center px-24 py-19 gap-16">
+    <div
+      className="flex items-center px-24 py-19 gap-16"
+      role="button"
+      tabIndex={0}
+      onClick={() => navigate(`/detail/${1}`)}>
       {type === "ASSETS" ? <AssetIcon /> : <LiabilityIcon />}
 
       <div className="flex flex-col">

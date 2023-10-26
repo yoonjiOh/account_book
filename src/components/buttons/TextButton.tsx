@@ -7,8 +7,8 @@ interface ITextButtonProps {
 
 const TextButton: React.FC<ITextButtonProps> = ({ label, onClick }) => {
   return (
-    <Button onClick={onClick} classNames={"w-full"}>
-      <span className="text-ebony/[56%] text-16 text-align-top leading-24 underline underline-offset-8 decoration-2">
+    <Button onClick={onClick}>
+      <span className="text-ebony/[56%] text-16 text-align-top leading-24 underline underline-offset-8 decoration-1">
         {label}
       </span>
     </Button>
