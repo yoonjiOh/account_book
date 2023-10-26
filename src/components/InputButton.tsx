@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ArrowBottomIcon } from "@/components/icons";
+import { ArrowDownIcon } from "@/components/icons";
 
 interface InputButtonProps {
   label: string;
@@ -57,7 +57,7 @@ const InputButton: React.FC<InputButtonProps> = ({
           </>
         )}
         <div className="absolute top-20 right-0">
-          <ArrowBottomIcon />
+          <ArrowDownIcon />
         </div>
       </div>
     </div>

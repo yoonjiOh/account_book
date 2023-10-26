@@ -8,7 +8,7 @@ interface SubmitButtonProps {
   onClick: () => void;
 }
 
-// 기타 자산 등록 화면에서 사용되는 등록하기 버튼입니다.
+// 등록하기 버튼입니다.
 const SubmitButton: React.FC<SubmitButtonProps> = ({
   onClick,
   label,
