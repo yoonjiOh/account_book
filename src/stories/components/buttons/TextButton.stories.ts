@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { TextButton } from "@/components";
+import { TextButton } from "@/features/ui/components";
 
 const meta: Meta<typeof TextButton> = {
   component: TextButton,

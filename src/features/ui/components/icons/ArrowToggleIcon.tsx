@@ -1,4 +1,4 @@
-import { ArrowUpIcon, ArrowDownIcon } from "@/components/icons";
+import { ArrowUpIcon, ArrowDownIcon } from "@/features/ui/components/icons";
 
 interface ArrowToggleIconProps {
   direction: "up" | "down";

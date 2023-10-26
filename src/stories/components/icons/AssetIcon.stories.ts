@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { AssetIcon } from "@/components/icons";
+import { AssetIcon } from "@/features/ui/components/icons";
 
 const meta: Meta<typeof AssetIcon> = {
   component: AssetIcon,

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { LiabilityIcon } from "@/components/icons";
+import { LiabilityIcon } from "@/features/ui/components/icons";
 
 const meta: Meta<typeof LiabilityIcon> = {
   component: LiabilityIcon,

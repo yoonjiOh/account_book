@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Path, UseFormRegister } from "react-hook-form";
-import { Tooltip } from "@/components";
-import { InputClearButtonIcon } from "@/components/icons";
+import { Tooltip } from "@/features/ui/components";
+import { InputClearButtonIcon } from "@/features/ui/components/icons";
 
 interface IFormInput {
   assetName: string;

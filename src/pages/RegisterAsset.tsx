@@ -1,5 +1,5 @@
-import { Title } from "@/components";
-import { RegisterAssetForm } from "@/features/asset-registration";
+import { Title } from "@/features/ui/components";
+import { RegisterAssetForm } from "@/features/asset/components";
 
 const RegisterAsset: React.FC = () => {
   return (

@@ -1,5 +1,5 @@
 import IconBackSvg from "@/assets/icons/icon-back.svg";
-import { Button } from "@/components";
+import { Button } from "@/features/ui/components";
 
 interface BackButtonIconProps {
   onClick: () => void;

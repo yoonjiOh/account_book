@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { BackButtonIcon, CloseButtonIcon } from "@/components/icons";
+import {
+  BackButtonIcon,
+  CloseButtonIcon,
+} from "@/features/ui/components/icons";
 
 // 모든 화면의 상단에 공통적으로 있는 Navigation 컴포넌트입니다.
 // App.tsx 에서만 사용합니다.

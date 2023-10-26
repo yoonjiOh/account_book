@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { InputClearButtonIcon } from "@/components/icons";
+import { InputClearButtonIcon } from "@/features/ui/components/icons";
 
 const meta: Meta<typeof InputClearButtonIcon> = {
   component: InputClearButtonIcon,

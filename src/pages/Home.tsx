@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { TextButton } from "@/components";
+import { TextButton } from "@/features/ui/components";
 import {
   AssetSummaryArcodion,
   SummaryHeaderSection,
-} from "@/features/asset-summary";
+} from "@/features/asset/components";
 
 /**
  * 기타자산 서비스 홈화면입니다.

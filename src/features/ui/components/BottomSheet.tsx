@@ -1,5 +1,5 @@
-import { DimmedBackground } from "@/components";
-import { CloseButtonRoundIcon } from "@/components/icons";
+import { DimmedBackground } from "@/features/ui/components";
+import { CloseButtonRoundIcon } from "@/features/ui/components/icons";
 
 interface BottomSheetProps {
   isOpen: boolean;

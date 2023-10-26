@@ -1,4 +1,4 @@
-import { Navigation } from "@/components";
+import { Navigation } from "@/features/ui/components";
 import { Outlet } from "react-router-dom";
 
 const Root = () => {

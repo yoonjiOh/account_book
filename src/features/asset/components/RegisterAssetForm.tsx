@@ -5,13 +5,13 @@ import {
   InputButton,
   MoneyInput,
   SubmitButton,
-} from "@/components";
+} from "@/features/ui/components";
 import { useForm, SubmitHandler } from "react-hook-form";
 import {
   CategoryBottomSheetContent,
   CategoryBottomSheetTitle,
   MAX_ASSET_REGISTRATION_VALUE,
-} from "@/features/asset-registration";
+} from "@/features/asset/components";
 
 interface IFormInput {
   assetName: string;

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Navigation } from "@/components";
+import { Navigation } from "@/features/ui/components";
 
 const meta: Meta<typeof Navigation> = {
   component: Navigation,

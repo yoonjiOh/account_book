@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ArrowDownIcon } from "@/components/icons";
+import { ArrowDownIcon } from "@/features/ui/components/icons";
 
 interface InputButtonProps {
   label: string;

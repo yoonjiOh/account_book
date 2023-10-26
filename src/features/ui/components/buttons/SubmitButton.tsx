@@ -1,4 +1,4 @@
-import { Button } from "@/components";
+import { Button } from "@/features/ui/components";
 import { cva } from "class-variance-authority";
 import cn from "@/utils/twClassMerge";
 

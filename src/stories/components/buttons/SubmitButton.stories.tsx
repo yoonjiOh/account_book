@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { SubmitButton } from "@/components";
+import { SubmitButton } from "@/features/ui/components";
 
 const meta: Meta<typeof SubmitButton> = {
   component: SubmitButton,

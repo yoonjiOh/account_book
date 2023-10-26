@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { TextButton, Title } from "@/components";
+import { TextButton, Title } from "@/features/ui/components";
 
 const AssetDetail: React.FC = () => {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ const AssetDetail: React.FC = () => {
               <th scope="row" className="text-left font-normal py-8s">
                 메모
               </th>
-              <td className="text-end font-semibold">메모</td>
+              <td className="text-end font-semibold">메모내용</td>
             </tr>
           </tbody>
         </table>

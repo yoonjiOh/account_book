@@ -2,37 +2,44 @@
   "assets": [
     {
       "id": 951,
-      "name": "부채",
+      "name": "금",
       "amount": 500000000,
       "type": "ASSETS",
       "memo": ""
     },
     {
       "id": 953,
-      "name": "아히하하",
+      "name": "현금",
       "amount": 500000,
       "type": "ASSETS",
       "memo": ""
     },
     {
-      "name": "부채",
+      "name": "부동산",
       "amount": 500000000,
       "type": "ASSETS",
       "memo": "",
       "id": 954
+    },
+    {
+      "name": "테스트자산1",
+      "amount": "100000",
+      "type": "ASSETS",
+      "memo": "두리두리",
+      "id": 955
     }
   ],
   "liabilities": [
     {
       "id": 950,
-      "name": "부채",
+      "name": "전세대출",
       "amount": -1000000,
       "type": "LIABILITIES",
       "memo": ""
     },
     {
       "id": 952,
-      "name": "하하하하",
+      "name": "라이언에게 빌림",
       "amount": -40000000,
       "type": "LIABILITIES",
       "memo": ""

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { NumericFormat } from "react-number-format";
-import { AssetIcon, LiabilityIcon } from "@/components/icons";
+import { AssetIcon, LiabilityIcon } from "@/features/ui/components/icons";
 
 interface AssetSummaryItemProps {
   type: "ASSETS" | "LIABILITIES";

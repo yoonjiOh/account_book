@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Arcodion } from "@/components";
-import { ArrowToggleIcon } from "@/components/icons";
-import { AssetSummaryItem } from "@/features/asset-summary";
+import { Arcodion } from "@/features/ui/components";
+import { ArrowToggleIcon } from "@/features/ui/components/icons";
+import { AssetSummaryItem } from "@/features/asset/components";
 
 interface AssetSummaryArcodionProps {
   type: "ASSETS" | "LIABILITIES";

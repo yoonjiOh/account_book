@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { CloseButtonRoundIcon } from "@/components/icons";
+import { CloseButtonRoundIcon } from "@/features/ui/components/icons";
 
 const meta: Meta<typeof CloseButtonRoundIcon> = {
   component: CloseButtonRoundIcon,

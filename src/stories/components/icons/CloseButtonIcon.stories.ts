@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { CloseButtonIcon } from "@/components/icons";
+import { CloseButtonIcon } from "@/features/ui/components/icons";
 
 const meta: Meta<typeof CloseButtonIcon> = {
   component: CloseButtonIcon,

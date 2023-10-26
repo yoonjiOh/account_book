@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { SummaryHeaderSection } from "@/features/asset-summary";
+import { SummaryHeaderSection } from "@/features/asset/components";
 
 const meta: Meta<typeof SummaryHeaderSection> = {
-  title: "features/asset-summary/SummaryHeaderSection",
+  title: "features/asset/SummaryHeaderSection",
   component: SummaryHeaderSection,
 };
 

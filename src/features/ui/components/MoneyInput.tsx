@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Controller } from "react-hook-form";
-import { InputClearButtonIcon } from "@/components/icons";
-import { Tooltip } from "@/components";
+import { InputClearButtonIcon } from "@/features/ui/components/icons";
+import { Tooltip } from "@/features/ui/components";
 import { NumericFormat } from "react-number-format";
 
 interface MoneyInputProps {

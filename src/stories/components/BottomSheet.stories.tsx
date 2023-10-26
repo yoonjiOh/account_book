@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { BottomSheet } from "@/components";
+import { BottomSheet } from "@/features/ui/components";
 import {
   CategoryBottomSheetTitle,
   CategoryBottomSheetContent,
-} from "@/features/asset-registration";
+} from "@/features/asset";
 
 const options = [
   {

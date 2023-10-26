@@ -1,4 +1,4 @@
-import { Button } from "@/components";
+import { Button } from "@/features/ui/components";
 
 interface ITextButtonProps {
   label: string;
