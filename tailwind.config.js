@@ -31,7 +31,10 @@ module.exports = {
       // 해당하는 name 이 없으면 유사한 color 의 name 으로 사용하였습니다.
       // color name 을 tailwilnd.config.js 에서 하나의 source 로 관리합니다.
       // 해당 프로젝트에서 사용되는 모든 color 는 tailwind.config.js 에서 관리합니다.
-      colors: {},
+      colors: {
+        // black 계통
+        ebony: "#060B11",
+      },
     },
   },
   variants: {
