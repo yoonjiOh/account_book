@@ -4,8 +4,6 @@ import { BackButtonIcon, CloseButtonIcon } from "@/components/icons";
 // App.tsx 에서만 사용합니다.
 // pathname 을 사용해 각 화면에 맞는 제목과 아이콘 버튼을 표시합니다.
 const Navigation: React.FC = () => {
-  const centerText = "기타 자산";
-
   const onClick = () => {
     console.log("onClick");
   };
@@ -17,7 +15,7 @@ const Navigation: React.FC = () => {
           className={
             "text-center align-text-top text-ebony text-17 font-semibold"
           }>
-          {centerText}
+          {window.document.title}
         </span>
         <CloseButtonIcon onClick={onClick} />
       </div>

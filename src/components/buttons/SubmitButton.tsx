@@ -31,7 +31,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
 export default SubmitButton;
 
 const BUTTON_VARIANTS = cva(
-  "flex items-center justify-center h-60 px-12 py-2 rounded-3xl",
+  "flex items-center justify-center h-60 px-12 py-2 rounded-[30px]",
   {
     variants: {
       type: {
