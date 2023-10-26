@@ -38,9 +38,14 @@ module.exports = {
 
         // gray 계통
         regentGray: "#87929C",
+        lightGray: "#060B1020",
+        bombay: "#AFB1B3",
 
         // red 계통
         coralRed: "#FF3C3C",
+
+        // yellow 계통
+        turbo: "#FFD600",
       },
     },
   },

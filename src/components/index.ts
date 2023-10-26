@@ -6,4 +6,5 @@ export { default as InputButton } from "@/components/InputButton";
 export { default as DimmedBackground } from "@/components/DimmedBackground";
 export { default as BottomSheet } from "@/components/BottomSheet";
 export { default as MoneyInput } from "@/components/MoneyInput";
-
+export { default as Button } from "@/components/buttons/Button";
+export { default as SubmitButton } from "@/components/buttons/SubmitButton";
