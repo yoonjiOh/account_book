@@ -3,18 +3,18 @@ import { Path, UseFormRegister } from "react-hook-form";
 import { Tooltip } from "@/components";
 import { InputClearButtonIcon } from "@/components/icons";
 
-interface IFormValues {
+interface IFormInput {
   assetName: string;
   assetType: string;
-  assetValue: number;
+  assetValue: string;
   assetDescription: string;
 }
 
 interface InputProps {
   type: "text" | "number";
-  label: Path<IFormValues>;
+  label: Path<IFormInput>;
   name: string;
-  register: UseFormRegister<IFormValues>;
+  register: UseFormRegister<IFormInput>;
   onClickClearButton: () => void;
   errorInfo?: {
     error: boolean;
@@ -44,13 +44,6 @@ const Input: React.FC<InputProps> = ({
 }) => {
   const [focused, setFocused] = useState(false);
 
-  const handleFocus = () => {
-    setFocused(true);
-  };
-  const handleClick = () => {
-    setFocused(true);
-  };
-
   return (
     <div
       className={`relative bg-white pl-19 pr-40 pt-17 pb-18 h-80 rounded-3xl ${
@@ -59,14 +52,16 @@ const Input: React.FC<InputProps> = ({
       role="button"
       aria-label="자산명 입력"
       tabIndex={0}
-      onClick={handleClick}>
+      onClick={() => setFocused(true)}>
       <div>
         {!isDirty && !focused ? (
-          <label
-            htmlFor={label}
-            className="inline-block flex items-center text-20 h-full leading-28 align-middle font-medium text-left text-lightGray">
-            {name}
-          </label>
+          <>
+            <label
+              htmlFor={label}
+              className="inline-block flex items-center text-20 h-full leading-28 align-middle font-medium text-left text-lightGray">
+              {name}
+            </label>
+          </>
         ) : (
           <>
             <label
@@ -80,7 +75,7 @@ const Input: React.FC<InputProps> = ({
               className="w-full outline-none text-20 leading-28 text-ebony placeholder:text-20 placeholder:text-lightGray placeholder:leading-28 truncate"
               type={type}
               {...register(label, rules)}
-              onFocus={handleFocus}
+              onFocus={() => setFocused(true)}
               placeholder={placeholder}
               aria-invalid={errorInfo?.error}
               aria-describedby={errorInfo ? `${label}-error` : undefined}

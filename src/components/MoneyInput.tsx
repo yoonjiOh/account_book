@@ -36,10 +36,6 @@ const MoneyInput: React.FC<MoneyInputProps> = ({
 }) => {
   const [focused, setFocused] = useState(false);
 
-  const handleClick = () => {
-    setFocused(true);
-  };
-
   return (
     <div
       className={`relative bg-white pl-19 pr-40 pt-17 pb-18 h-80 rounded-3xl ${
@@ -48,7 +44,7 @@ const MoneyInput: React.FC<MoneyInputProps> = ({
       role="button"
       aria-label="자산명 입력"
       tabIndex={0}
-      onClick={handleClick}>
+      onClick={() => setFocused(true)}>
       <div>
         {!isDirty && !focused ? (
           <label

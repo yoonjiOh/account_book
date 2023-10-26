@@ -33,7 +33,7 @@ const InputButton: React.FC<InputButtonProps> = ({
       tabIndex={0}
       onClick={handleClick}>
       <div className="relative h-full">
-        {inputValue === "" && !focused ? (
+        {!inputValue && !focused ? (
           <label className="inline-block flex items-center text-20 h-full leading-28 align-middle font-medium text-left text-lightGray">
             {label}
           </label>
