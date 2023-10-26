@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { ArrowBottomIcon } from "@/components/icons";
 
 interface InputButtonProps {
-  id: string;
   label: string;
   inputValue?: string;
   placeholder: string;
@@ -10,7 +9,6 @@ interface InputButtonProps {
 }
 
 const InputButton: React.FC<InputButtonProps> = ({
-  id,
   label,
   inputValue,
   placeholder,
@@ -42,7 +40,7 @@ const InputButton: React.FC<InputButtonProps> = ({
         ) : (
           <>
             <label
-              htmlFor={id}
+              htmlFor={label}
               className={
                 "block text-12 align-text-top leading-18 font-medium text-black mb-2"
               }>
@@ -50,7 +48,6 @@ const InputButton: React.FC<InputButtonProps> = ({
             </label>
             <input
               readOnly
-              id={id}
               className="w-full outline-none text-20 leading-28 text-ebony placeholder:text-20 placeholder:text-lightGray placeholder:leading-28 cursor-pointer"
               type="text"
               value={inputValue}

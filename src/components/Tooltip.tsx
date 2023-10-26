@@ -8,7 +8,7 @@ interface TooltipProps {
  * 향후 디자인이 추가되면 해당 컴포넌트를 수정하여 사용하면 됩니다.
  * */
 const Tooltip: React.FC<TooltipProps> = ({ message }) => (
-  <div className="absolute left-15 p-2 -mt-5 w-full">
+  <div className="absolute left-15 p-2 -mt-5 w-full z-20">
     <div className="w-3 h-3 relative ml-12">
       <div className="absolute w-6 h-6 bg-coralRed transform rotate-45" />
     </div>
