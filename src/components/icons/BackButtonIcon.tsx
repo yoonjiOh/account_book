@@ -7,7 +7,7 @@ interface BackButtonIconProps {
 
 const BackButtonIcon: React.FC<BackButtonIconProps> = ({ onClick }) => {
   return (
-    <Button onClick={onClick} classNames={"w-full"}>
+    <Button onClick={onClick}>
       <img src={IconBackSvg} alt="이전 페이지로 이동" />
     </Button>
   );
