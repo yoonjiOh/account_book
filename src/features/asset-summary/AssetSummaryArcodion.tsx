@@ -3,7 +3,15 @@ import { Arcodion } from "@/components";
 import { ArrowToggleIcon } from "@/components/icons";
 import { AssetSummaryItem } from "@/features/asset-summary";
 
-const AssetSummaryArcodion: React.FC = () => {
+interface AssetSummaryArcodionProps {
+  type: "ASSETS" | "LIABILITIES";
+  totalValue: number;
+}
+
+const AssetSummaryArcodion: React.FC<AssetSummaryArcodionProps> = ({
+  type,
+  totalValue,
+}) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const onClick = () => {
@@ -13,15 +21,15 @@ const AssetSummaryArcodion: React.FC = () => {
   return (
     <Arcodion>
       <Arcodion.ArcodionSummary
-        title="자산"
-        value={10000}
+        title={type === "ASSETS" ? "자산" : "부채"}
+        value={totalValue}
         onClick={onClick}
         expandIcon={<ArrowToggleIcon direction={isExpanded ? "up" : "down"} />}
       />
       <Arcodion.ArcodionDetail isExpanded={isExpanded}>
-        <AssetSummaryItem type="ASSETS" assetName="현금" assetValue={10000} />
+        <AssetSummaryItem type={type} assetName="현금" assetValue={10000} />
         <AssetSummaryItem
-          type="ASSETS"
+          type={type}
           assetName="골드바"
           assetValue={25000000}
         />

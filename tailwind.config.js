@@ -38,7 +38,7 @@ module.exports = {
 
         // gray 계통
         regentGray: "#87929C",
-        lightGray: "#060B10",
+        lightGray: "#060B1020",
         bombay: "#AFB1B3",
 
         // red 계통

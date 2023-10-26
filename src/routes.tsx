@@ -1,13 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "./Root";
-import { NotFound, RegisterAsset } from "@/pages";
+import { NotFound, RegisterAsset, Home } from "@/pages";
 
 const routes = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     errorElement: <NotFound />,
-    children: [{ path: "/", element: <RegisterAsset /> }],
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/register", element: <RegisterAsset /> },
+    ],
   },
 ]);
 

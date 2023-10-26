@@ -8,4 +8,5 @@ export { default as BottomSheet } from "@/components/BottomSheet";
 export { default as MoneyInput } from "@/components/MoneyInput";
 export { default as Button } from "@/components/buttons/Button";
 export { default as SubmitButton } from "@/components/buttons/SubmitButton";
+export { default as TextButton } from "@/components/buttons/TextButton";
 export { Arcodion } from "@/components/Arcodion";
