@@ -34,6 +34,10 @@ module.exports = {
       colors: {
         // black 계통
         ebony: "#060B11",
+        lightGray: "#060B1020",
+
+        // red 계통
+        coralRed: "#FF3C3C",
       },
     },
   },
