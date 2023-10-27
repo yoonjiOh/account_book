@@ -2,31 +2,17 @@ import { useState } from "react";
 import { Path, UseFormRegister } from "react-hook-form";
 import { Tooltip } from "@/features/ui/components";
 import { InputClearButtonIcon } from "@/features/ui/components/icons";
-
-interface IFormInput {
-  assetName: string;
-  assetType: string;
-  assetValue: string;
-  assetDescription: string;
-}
+import { IFormInput } from "@/features/asset/components/RegisterAssetForm";
 
 interface InputProps {
   type: "text" | "number";
   label: Path<IFormInput>;
   name: string;
-  register: UseFormRegister<IFormInput>;
-  onClickClearButton: () => void;
-  errorInfo?: {
-    error: boolean;
-    errorMessage: string;
-  };
   placeholder: string;
   isDirty: boolean;
-  rules?: {
-    required?: boolean;
-    maxLength?: number;
-    minLength?: number;
-  };
+  errorMessage?: string;
+  register: UseFormRegister<IFormInput>;
+  onClickClearButton: () => void;
 }
 
 // Input 컴포넌트는 useForm 의 register 를 인자로 받아 사용합니다.
@@ -38,9 +24,8 @@ const Input: React.FC<InputProps> = ({
   placeholder,
   register,
   onClickClearButton,
-  errorInfo,
+  errorMessage,
   isDirty,
-  rules,
 }) => {
   const [focused, setFocused] = useState(false);
 
@@ -67,18 +52,18 @@ const Input: React.FC<InputProps> = ({
             <label
               htmlFor={label}
               className={`block text-12 align-text-top leading-18 font-medium ${
-                errorInfo ? "text-coralRed" : "text-black"
+                errorMessage ? "text-coralRed" : "text-black"
               } mb-2`}>
               {name}
             </label>
             <input
               className="w-full outline-none text-20 leading-28 text-ebony placeholder:text-20 placeholder:text-lightGray placeholder:leading-28 truncate"
               type={type}
-              {...register(label, rules)}
+              {...register(label)}
               onFocus={() => setFocused(true)}
               placeholder={placeholder}
-              aria-invalid={errorInfo?.error}
-              aria-describedby={errorInfo ? `${label}-error` : undefined}
+              aria-invalid={!!errorMessage}
+              aria-describedby={errorMessage ? `${label}-error` : undefined}
             />
             {isDirty && (
               <div className="absolute top-30 right-19">
@@ -86,7 +71,7 @@ const Input: React.FC<InputProps> = ({
               </div>
             )}
 
-            {errorInfo && <Tooltip message={errorInfo.errorMessage} />}
+            {errorMessage && <Tooltip message={errorMessage} />}
           </>
         )}
       </div>

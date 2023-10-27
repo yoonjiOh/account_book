@@ -11,11 +11,7 @@ interface MoneyInputProps {
   isDirty: boolean;
   control: any;
   setValue: any;
-  rules: any;
-  errorInfo?: {
-    error: boolean;
-    errorMessage: string;
-  };
+  errorMessage?: string;
   onClickClearButton: () => void;
 }
 
@@ -29,9 +25,8 @@ const MoneyInput: React.FC<MoneyInputProps> = ({
   name,
   placeholder,
   setValue,
-  rules,
   control,
-  errorInfo,
+  errorMessage,
   onClickClearButton,
 }) => {
   const [focused, setFocused] = useState(false);
@@ -57,16 +52,14 @@ const MoneyInput: React.FC<MoneyInputProps> = ({
             <label
               htmlFor={label}
               className={`block text-12 align-text-top leading-18 font-medium ${
-                errorInfo ? "text-coralRed" : "text-black"
+                errorMessage ? "text-coralRed" : "text-black"
               } mb-2`}>
               {name}
             </label>
             <Controller
               name="assetValue"
               control={control}
-              rules={rules}
               render={({ field: { value, ref, onChange, ...rest } }) => {
-                console.log({ rest });
                 return (
                   <NumericFormat
                     className="w-full outline-none"
@@ -75,12 +68,13 @@ const MoneyInput: React.FC<MoneyInputProps> = ({
                     getInputRef={ref}
                     value={isDirty ? value : ""}
                     onValueChange={(values) => {
-                      console.log({ values });
                       setValue(label, values.floatValue);
                     }}
                     placeholder={placeholder}
-                    aria-invalid={errorInfo?.error}
-                    aria-describedby={errorInfo ? `${label}-error` : undefined}
+                    aria-invalid={!!errorMessage}
+                    aria-describedby={
+                      errorMessage ? `${label}-error` : undefined
+                    }
                     {...rest}
                   />
                 );
@@ -92,7 +86,7 @@ const MoneyInput: React.FC<MoneyInputProps> = ({
               </div>
             )}
 
-            {errorInfo && <Tooltip message={errorInfo.errorMessage} />}
+            {errorMessage && <Tooltip message={errorMessage} />}
           </>
         )}
       </div>
