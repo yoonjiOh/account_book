@@ -3,10 +3,8 @@ import { TextButton } from "@/features/ui/components";
 import { AssetSummaryArcodion, SummaryHeaderSection } from "@/features/asset";
 import { AssetModel } from "@/features/asset/model";
 import { AssetType } from "@/features/asset/type";
-import { LiabilityModel } from "@/features/liability/model";
 
 import { getAssets } from "@/features/asset/api/getAssets";
-import { getLiabilities } from "@/features/liability/api/getLiabilities";
 
 /**
  * 홈 화면을 위한 데이터를 가져옵니다.
@@ -18,10 +16,9 @@ import { getLiabilities } from "@/features/liability/api/getLiabilities";
  */
 export const homeLoader = async () => {
   // 자산 가져오기
-  const assets = await getAssets();
-
+  const assets = await getAssets(AssetType.ASSETS);
   // 부채 가져오기
-  const liabilities = await getLiabilities();
+  const liabilities = await getAssets(AssetType.LIABILITIES);
 
   // 자산도 없고, 부채도 없으면 등록 페이지로 이동합니다.
   if (assets.length === 0 && liabilities.length === 0) {
@@ -39,7 +36,7 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const { assets, liabilities } = useLoaderData() as {
     assets: AssetModel[];
-    liabilities: LiabilityModel[];
+    liabilities: AssetModel[];
   };
 
   const sumAssetValue = assets.reduce(

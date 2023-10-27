@@ -8,8 +8,8 @@ export interface AssetModel {
   id: number;
   name: string;
   value: number;
-  type: AssetType.ASSETS;
-  memo: string;
+  type: AssetType;
+  memo?: string;
 }
 
 // mapper 함수를 통해 API 응답을 AssetModel 로 변환합니다.
@@ -20,7 +20,7 @@ export const mapToAssetModel = (dto: AssetResponseDto): AssetModel => {
     id: dto.id,
     name: dto.name,
     value: dto.amount,
-    type: AssetType.ASSETS,
+    type: dto.type as AssetType,
     memo: dto.memo || "",
   };
 };

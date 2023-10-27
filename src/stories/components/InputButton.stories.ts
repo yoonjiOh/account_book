@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { InputButton } from "@/components";
+import { InputButton } from "@/features/ui/components";
 
 const meta: Meta<typeof InputButton> = {
   component: InputButton,
@@ -10,7 +10,6 @@ type Story = StoryObj<typeof InputButton>;
 
 export const Default: Story = {
   args: {
-    id: "select-input-with-bottom-sheet",
     label: "분류",
     inputValue: "test",
     placeholder: "선택하세요",

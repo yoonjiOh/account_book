@@ -4,6 +4,7 @@ import { NotFound, RegisterAsset, Home, AssetDetail } from "@/pages";
 import { homeLoader } from "@/pages/Home";
 import { queryClient } from "@/lib/react-query";
 import { AssetDetailLoader } from "@/pages/AssetDetail";
+import { AssetType } from "./features/asset/type";
 
 const routes = createBrowserRouter([
   {
@@ -15,10 +16,14 @@ const routes = createBrowserRouter([
       { path: "/register", element: <RegisterAsset /> },
       { path: "/register/edit/:id", element: <RegisterAsset /> },
       {
-        path: "/detail/:id",
+        path: "/detail/:type/:id",
         element: <AssetDetail />,
         loader: ({ params }) =>
-          AssetDetailLoader(queryClient, params.id as string),
+          AssetDetailLoader({
+            queryClient,
+            id: params.id as string,
+            type: params.type as AssetType,
+          }),
       },
     ],
   },

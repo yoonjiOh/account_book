@@ -22,7 +22,7 @@ const AssetSummaryItem: React.FC<AssetSummaryItemProps> = ({
       role="button"
       aria-label="자산 상세 보기"
       tabIndex={0}
-      onClick={() => navigate(`/detail/${id}`)}>
+      onClick={() => navigate(`/detail/${type}/${id}`)}>
       {type === AssetType.ASSETS ? <AssetIcon /> : <LiabilityIcon />}
 
       <div className="flex flex-col">

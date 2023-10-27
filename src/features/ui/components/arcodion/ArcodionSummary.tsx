@@ -19,6 +19,7 @@ const ArcodionSummary: React.FC<ArcodionSummaryProps> = ({
   expandIcon,
   onClick,
 }) => {
+  // TODO) 내용은 asset 도메인으로 빼기
   return (
     <div
       className="px-24 pt-40 pb-16 flex items-center justify-between"

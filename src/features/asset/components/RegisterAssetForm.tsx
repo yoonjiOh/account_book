@@ -57,12 +57,12 @@ interface RegisterAssetFormProps {
   isEditMode?: boolean;
   onSubmit: (data: IFormInput) => void;
 }
-// RegitserAssetForm 은 비즈니스 로직과 분리되어야 한다.
 const RegisterAssetForm: React.FC<RegisterAssetFormProps> = ({
   data,
   isEditMode,
   onSubmit,
 }) => {
+  console.log({ data });
   const {
     register,
     resetField,

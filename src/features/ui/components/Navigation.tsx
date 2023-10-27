@@ -13,7 +13,9 @@ const Navigation: React.FC = () => {
 
 
   // BackButtonIcon (뒤로가기) 보여주는 pathname 을 배열로 만들어서 includes 로 비교
-  const renderBackButtonIcon = ["/"].includes(pathname) as boolean;
+  const renderBackButtonIcon = ["/", "/register/edit"].includes(
+    pathname,
+  ) as boolean;
 
   // CloseButtonIcon (뒤로가기) 보여주는 pathname 을 배열로 만들어서 includes 로 비교
   const renderCloseButtonIcon = ["/register"].includes(pathname) as boolean;
