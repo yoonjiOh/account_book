@@ -18,7 +18,9 @@ const AssetSummaryArcodion: React.FC<AssetSummaryArcodionProps> = ({
   totalValue,
   data,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  // 기획 보충) 자산은 펼친 상태로 시작, 부채는 접힌 상태로 시작합니다.
+  const initialExpanded = type === AssetType.ASSETS ? true : false;
+  const [isExpanded, setIsExpanded] = useState(initialExpanded);
 
   const onClick = () => {
     setIsExpanded(!isExpanded);

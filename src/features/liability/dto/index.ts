@@ -1,4 +1,4 @@
-import { BaseAssetResponseDto } from "@/features/asset/dto";
+import { BaseAssetResponseDto } from "@/features/asset/dto/response";
 
 export interface LiabilityResponseDto extends BaseAssetResponseDto {
   id: number;

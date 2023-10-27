@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   BottomSheet,
   Input,
@@ -15,12 +15,17 @@ import {
   CategoryBottomSheetTitle,
 } from "@/features/asset/components";
 import { MAX_ASSET_REGISTRATION_VALUE } from "@/features/asset/const";
+import { AssetType } from "@/features/asset/type";
+
+import { useCreateAsset } from "@/features/asset/api/createAsset";
+import { CreateAssetRequestDTO } from "@/features/asset/dto/request";
+import { mapToAssetRequetDto } from "@/features/asset/model";
 
 export interface IFormInput {
   assetName: string;
-  assetType: string;
+  assetType: AssetType;
   assetValue: number;
-  assetDescription?: string;
+  assetMemo?: string;
 }
 
 /**
@@ -35,12 +40,15 @@ const schema = yup.object().shape({
     .string()
     .max(20, "최대 20자까지 입력 가능해요")
     .required("최소 1자를 입력해주세요"),
-  assetType: yup.string().required("필수 선택해 주세요"),
+  assetType: yup
+    .mixed<AssetType>()
+    .oneOf(Object.values(AssetType))
+    .required("필수 선택해 주세요"),
   assetValue: yup
     .number()
     .max(MAX_ASSET_REGISTRATION_VALUE, "최대 입력 금액을 초과했어요")
     .required("자산 가치를 입력해 주세요"),
-  assetDescription: yup
+  assetMemo: yup
     .string()
     .min(2, "최소 2자를 입력해주세요")
     .max(30, "최대 30자까지 입력 가능해요"),
@@ -55,23 +63,42 @@ const RegisterAssetForm: React.FC = () => {
     watch,
     getValues,
     setValue,
+    trigger,
     formState: { errors, dirtyFields },
   } = useForm<IFormInput>({
     mode: "onBlur", // 요구사항: 입력폼의 검증은 blur 되는 시점에 동작하도록
     resolver: yupResolver(schema),
   });
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  const createAsssetMutation = useCreateAsset();
+
+  const values = getValues();
+  // 필수값(자산명, 분류, 자산가치)들이 다 등록되었을 경우에만 true 반환
+  const REQUIRED_FIELDS = ["assetName", "assetType", "assetValue"];
+  const isSubmitable = REQUIRED_FIELDS.every((key) => {
+    return !!Object.keys(values).includes(key);
+  });
+
+  useEffect(() => {
+    // 자산명, 자산가치가 입력되었을 경우에만 자산분류 필드를 검증하도록
+    if (!isSubmitable && values.assetName && values.assetValue)
+      trigger("assetType");
+  }, [values.assetName, values.assetType, values.assetValue, values.assetMemo]);
+
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    // 호출 전에 request dto 로 변환
+    const asset: CreateAssetRequestDTO = mapToAssetRequetDto(data);
+    // 자산 등록 API 호출
+    await createAsssetMutation.mutateAsync(asset);
+  };
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
 
-  const handleSelectCategory = (categoryId: string) => {
-    setValue("assetType", categoryId);
+  const handleSelectType = (type: AssetType) => {
+    setValue("assetType", type);
+    trigger("assetType");
     setBottomSheetOpen(false);
   };
 
   const currentAssetType = getValues("assetType");
-  // 필수값(자산명, 분류, 자산가치)들이 다 등록되었을 경우에만 SubmitButton 을 활성화
-  const isSubmitable = true;
-
   return (
     <>
       <form className="mt-26" onSubmit={handleSubmit(onSubmit)}>
@@ -94,6 +121,7 @@ const RegisterAssetForm: React.FC = () => {
           <InputButton
             label="분류"
             inputValue={ASSET_CATEGORY_MAP[currentAssetType]}
+            errorMessage={errors.assetType && errors.assetType.message}
             placeholder="선택하세요"
             onClick={() => setBottomSheetOpen(true)}
           />
@@ -119,15 +147,13 @@ const RegisterAssetForm: React.FC = () => {
           {/* 메모를 Input 컴포넌트에 입력 */}
           <Input
             type="text"
-            label="assetDescription"
+            label="assetMemo"
             name="메모"
             register={register}
-            onClickClearButton={() => resetField("assetDescription")}
+            onClickClearButton={() => resetField("assetMemo")}
             placeholder="메모를 입력하세요"
-            errorMessage={
-              errors.assetDescription && errors.assetDescription.message
-            }
-            isDirty={!!dirtyFields.assetDescription}
+            errorMessage={errors.assetMemo && errors.assetMemo.message}
+            isDirty={!!dirtyFields.assetMemo}
           />
         </div>
 
@@ -142,7 +168,7 @@ const RegisterAssetForm: React.FC = () => {
                   key={option.id}
                   assetCategory={option}
                   checked={watch("assetType") === option.id}
-                  onClick={() => handleSelectCategory(option.id)}
+                  onClick={() => handleSelectType(option.id)}
                 />
               ))}
             </>
@@ -177,7 +203,7 @@ const options = [
     id: "LIABILITIES",
     name: "부채",
   },
-];
+] as { id: AssetType; name: string }[];
 
 const ASSET_CATEGORY_MAP: { [key: string]: string } = {
   ASSETS: "자산",

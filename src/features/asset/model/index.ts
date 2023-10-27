@@ -1,5 +1,7 @@
+import { CreateAssetRequestDTO } from "./../dto/request/index";
 import { AssetType } from "@/features/asset/type";
-import { AssetResponseDto } from "@/features/asset/dto";
+import { AssetResponseDto } from "@/features/asset/dto/response";
+import { IFormInput } from "@/features/asset/components/RegisterAssetForm";
 
 // 비즈니스 로직에서 사용되는 AssetModel 입니다.
 export interface AssetModel {
@@ -18,5 +20,18 @@ export const mapToAssetModel = (dto: AssetResponseDto): AssetModel => {
     name: dto.name,
     value: dto.amount,
     type: AssetType.ASSETS,
+  };
+};
+
+export const mapToAssetRequetDto = (
+  data: IFormInput,
+): CreateAssetRequestDTO => {
+  return {
+    data: {
+      name: data.assetName,
+      amount: data.assetValue,
+      type: data.assetType,
+      memo: data.assetMemo,
+    },
   };
 };

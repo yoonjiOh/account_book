@@ -17,6 +17,11 @@ type UseLiabilitiesOptions = {
   config?: QueryConfig<QueryFnType>;
 };
 
+export const getLiabilitiesQuery = () => ({
+  queryKey: ["liabilities"],
+  queryFn: () => getLiabilities(),
+});
+
 export const useLiabilities = ({ config }: UseLiabilitiesOptions = {}) => {
   return useQuery<LiabilityModel[]>({
     ...config,

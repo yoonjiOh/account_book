@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { ArrowDownIcon } from "@/features/ui/components/icons";
+import { Tooltip } from "@/features/ui/components";
 
 interface InputButtonProps {
   label: string;
   inputValue?: string;
   placeholder: string;
+  errorMessage?: string;
   onClick: () => void;
 }
 
@@ -12,6 +14,7 @@ const InputButton: React.FC<InputButtonProps> = ({
   label,
   inputValue,
   placeholder,
+  errorMessage,
   onClick,
 }) => {
   const [focused, setFocused] = useState(false);
@@ -32,8 +35,8 @@ const InputButton: React.FC<InputButtonProps> = ({
       aria-label="자산 분류 보기"
       tabIndex={0}
       onClick={handleClick}>
-      <div className="relative h-full">
-        {!inputValue && !focused ? (
+      <div className="relative">
+        {!inputValue && !focused && !errorMessage ? (
           <label className="inline-block flex items-center text-20 h-full leading-28 align-middle font-medium text-left text-lightGray">
             {label}
           </label>
@@ -41,9 +44,9 @@ const InputButton: React.FC<InputButtonProps> = ({
           <>
             <label
               htmlFor={label}
-              className={
-                "block text-12 align-text-top leading-18 font-medium text-black mb-2"
-              }>
+              className={`block text-12 align-text-top leading-18 font-medium text-black mb-2 ${
+                errorMessage ? "text-coralRed" : "text-black"
+              }`}>
               {label}
             </label>
             <input
@@ -60,6 +63,7 @@ const InputButton: React.FC<InputButtonProps> = ({
           <ArrowDownIcon />
         </div>
       </div>
+      {errorMessage && <Tooltip message={errorMessage} />}
     </div>
   );
 };

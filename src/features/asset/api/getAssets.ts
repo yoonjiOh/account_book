@@ -16,6 +16,11 @@ type UseAssetsOptions = {
   config?: QueryConfig<QueryFnType>;
 };
 
+export const getAssestQuery = () => ({
+  queryKey: ["assets"],
+  queryFn: () => getAssets(),
+});
+
 export const useAssets = ({ config }: UseAssetsOptions = {}) => {
   return useQuery<AssetModel[]>({
     ...config,

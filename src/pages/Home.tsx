@@ -1,14 +1,17 @@
-import { useNavigate, useLoaderData, redirect } from "react-router-dom";
+import { useNavigate, useLoaderData } from "react-router-dom";
 import { TextButton } from "@/features/ui/components";
 import {
   AssetSummaryArcodion,
   SummaryHeaderSection,
 } from "@/features/asset/components";
-import { getAssets } from "@/features/asset/api";
-import { getLiabilities } from "@/features/liability/api";
 import { AssetModel } from "@/features/asset/model";
 import { AssetType } from "@/features/asset/type";
 import { LiabilityModel } from "@/features/liability/model";
+// import { getAssestQuery } from "@/features/asset/api/getAssets";
+// import { getLiabilitiesQuery } from "@/features/liability/api/getLiabilities";
+import { useQuery } from "@tanstack/react-query";
+import { getAssets } from "@/features/asset/api/getAssets";
+import { getLiabilities } from "@/features/liability/api/getLiabilities";
 
 /**
  * 홈 화면을 위한 데이터를 가져옵니다.
@@ -16,18 +19,28 @@ import { LiabilityModel } from "@/features/liability/model";
  * Home 컴포넌트가 렌더링되기 전에 실행됩니다.
  * cache 는 되지 않습니다.
  * cache 를 하려면 return useQuery 를 사용해야 합니다.
+ *  즉 로더는 쿼리클라이언트에 캐싱해 두는 역할을 수행합니다.
  */
 export const homeLoader = async () => {
   // 자산 가져오기
   const assets = await getAssets();
+  // const assetsQuery = getAssestQuery();
+  // const assetsQueryFn =
+  //   queryClient.getQueryData(assetsQuery.queryKey) ??
+  //   (await queryClient.fetchQuery(assetsQuery));
 
-  // 부채 가져오기
+  // const liablitiesQuery = getLiabilitiesQuery();
+  // const liabilitiesQueryFn =
+  //   queryClient.getQueryData(liablitiesQuery.queryKey) ??
+  //   (await queryClient.fetchQuery(liablitiesQuery));
+
+  // // 부채 가져오기
   const liabilities = await getLiabilities();
 
-  // 자산도 없고, 부채도 없으면 등록 페이지로 이동합니다.
-  if (assets.length === 0 && liabilities.length === 0) {
-    return redirect("/register");
-  }
+  // // 자산도 없고, 부채도 없으면 등록 페이지로 이동합니다.
+  // if (assets.length === 0 && liabilities.length === 0) {
+  //   return redirect("/register");
+  // }
   return { assets, liabilities };
 };
 
@@ -37,11 +50,15 @@ export const homeLoader = async () => {
  * @returns
  */
 const Home: React.FC = () => {
+  console.log("HOme");
   const navigate = useNavigate();
   const { assets, liabilities } = useLoaderData() as {
     assets: AssetModel[];
     liabilities: LiabilityModel[];
   };
+  // const { data: contact } = useQuery(contactDetailQuery(params.contactId));
+
+  console.log("render", assets, liabilities);
 
   const sumAssetValue = assets.reduce(
     (acc, cur) => acc + cur.value,

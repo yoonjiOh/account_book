@@ -18,8 +18,9 @@ const AssetSummaryItem: React.FC<AssetSummaryItemProps> = ({
   const { id, name, value } = asset;
   return (
     <div
-      className="flex items-center px-24 py-19 gap-16"
+      className="flex items-center px-24 py-19 gap-16 cursor-pointer"
       role="button"
+      aria-label="자산 상세 보기"
       tabIndex={0}
       onClick={() => navigate(`/detail/${id}`)}>
       {type === AssetType.ASSETS ? <AssetIcon /> : <LiabilityIcon />}
