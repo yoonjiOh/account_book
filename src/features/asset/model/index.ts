@@ -1,7 +1,7 @@
 import { CreateAssetRequestDTO } from "./../dto/request/index";
 import { AssetType } from "@/features/asset/type";
 import { AssetResponseDto } from "@/features/asset/dto/response";
-import { IFormInput } from "@/features/asset/components/RegisterAssetForm";
+import { IFormInput } from "@/features/asset/component/RegisterAssetForm";
 
 // 비즈니스 로직에서 사용되는 AssetModel 입니다.
 export interface AssetModel {

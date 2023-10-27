@@ -27,9 +27,7 @@ const ArcodionSummary: React.FC<ArcodionSummaryProps> = ({
       role="button"
       tabIndex={0}
       aria-label="펼치기">
-      <span className="inline-block text-18 leading-26 align-middle">
-        {title}
-      </span>
+      <span className="text-18 leading-26 align-middle">{title}</span>
       <div className="flex items-center">
         <NumericFormat
           className="w-full outline-none text-18 leading-26 font-bold text-end"

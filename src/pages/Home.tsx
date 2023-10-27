@@ -1,18 +1,19 @@
-import { useNavigate, useLoaderData, redirect } from "react-router-dom";
-import { TextButton } from "@/features/ui/components";
-import { AssetSummaryArcodion, SummaryHeaderSection } from "@/features/asset";
-import { AssetModel } from "@/features/asset/model";
+import { useNavigate, redirect } from "react-router-dom";
+import { Fallback, TextButton } from "@/features/ui/components";
 import { AssetType } from "@/features/asset/type";
 
 import { getAssets } from "@/features/asset/api/getAssets";
+import {
+  AssetListContainer,
+  LiabilityListContainer,
+  TotalAssetSummaryContainer,
+} from "@/features/asset/container";
+import ErrorBoundary from "@/features/ui/components/ErrorBoundary";
 
 /**
  * 홈 화면을 위한 데이터를 가져옵니다.
  * @returns
  * Home 컴포넌트가 렌더링되기 전에 실행됩니다.
- * cache 는 되지 않습니다.
- * cache 를 하려면 return useQuery 를 사용해야 합니다.
- *  즉 로더는 쿼리클라이언트에 캐싱해 두는 역할을 수행합니다.
  */
 export const homeLoader = async () => {
   // 자산 가져오기
@@ -34,43 +35,27 @@ export const homeLoader = async () => {
  */
 const Home: React.FC = () => {
   const navigate = useNavigate();
-  const { assets, liabilities } = useLoaderData() as {
-    assets: AssetModel[];
-    liabilities: AssetModel[];
-  };
-
-  const sumAssetValue = assets.reduce(
-    (acc, cur) => acc + cur.value,
-    0,
-  ) as number;
-  const sumLiabilityValue = liabilities.reduce(
-    (acc, cur) => acc + cur.value,
-    0,
-  ) as number;
-  const assetTotalValue = (sumAssetValue + sumLiabilityValue) as number;
 
   return (
     <section className="flex flex-col items-center w-screen h-screen pt-88">
-      {/* SummaryHeaderSection 컴포넌트를 사용해 자산 합계 (자산 + 부채)를 보여줍니다. */}
-      <SummaryHeaderSection assetTotalValue={assetTotalValue} />
+      {/* 자산 합계 영역 */}
+      <ErrorBoundary fallback={<Fallback />}>
+        <TotalAssetSummaryContainer />
+      </ErrorBoundary>
 
-      <div className="w-full h-15 bg-regentGray/10" />
+      <ThickDivider />
 
       {/* 자산 요약 영역 */}
-      <AssetSummaryArcodion
-        type={AssetType.ASSETS}
-        totalValue={sumAssetValue}
-        data={assets}
-      />
+      <ErrorBoundary fallback={<Fallback />}>
+        <AssetListContainer />
+      </ErrorBoundary>
 
       <Divider />
 
       {/* 부채 요약 영역 */}
-      <AssetSummaryArcodion
-        type={AssetType.LIABILITIES}
-        totalValue={sumLiabilityValue}
-        data={liabilities}
-      />
+      <ErrorBoundary fallback={<Fallback />}>
+        <LiabilityListContainer />
+      </ErrorBoundary>
 
       <Divider />
 
@@ -90,5 +75,11 @@ export default Home;
 const Divider = () => (
   <div className="w-full px-19">
     <div className="border-b border-lightGray h-47" />
+  </div>
+);
+
+const ThickDivider = () => (
+  <div className="h-full w-full bg-lightGray">
+    <div className="h-15"></div>
   </div>
 );

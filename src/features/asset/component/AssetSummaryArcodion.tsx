@@ -34,7 +34,7 @@ const AssetSummaryArcodion: React.FC<AssetSummaryArcodionProps> = ({
         expandIcon={<ArrowToggleIcon direction={isExpanded ? "up" : "down"} />}
       />
       <Arcodion.ArcodionDetail isExpanded={isExpanded}>
-        {data.map((item) => {
+        {data?.map((item) => {
           return <AssetSummaryItem key={item.id} type={type} asset={item} />;
         })}
       </Arcodion.ArcodionDetail>
