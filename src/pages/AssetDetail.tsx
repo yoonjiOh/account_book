@@ -1,12 +1,41 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { TextButton, Title } from "@/features/ui/components";
+import { getAssetQuery } from "@/features/asset/api/getAsset";
+import { useQuery } from "@tanstack/react-query";
+import { ASSET_TYPE_NAME } from "@/features/asset/const";
+import { NumericFormat } from "react-number-format";
+import { MemoCTAButton } from "@/features/asset";
+import { QueryClient } from "@tanstack/react-query";
+
+export const AssetDetailLoader = async (
+  queryClient: QueryClient,
+  id: string,
+) => {
+  const query = getAssetQuery(id);
+
+  return (
+    queryClient.getQueryData(query.queryKey) ??
+    (await queryClient.fetchQuery(query))
+  );
+};
 
 const AssetDetail: React.FC = () => {
+  const params = useParams();
+
   const navigate = useNavigate();
+  if (!params.id) {
+    return <div>잘못된 페이지입니다. </div>;
+  }
+  const { data: asset } = useQuery(getAssetQuery(params?.id));
+  if (!asset) {
+    return <div>잘못된 페이지입니다. </div>;
+  }
+
+  const { name, type, value, memo } = asset;
   return (
     <section className="flex flex-col items-center w-screen h-screen pt-88">
       <div className="w-325">
-        <Title title={"골드바"} />
+        <Title title={name} />
         {/**
          * 자산 상세 정보 영역
          * 웹 접근성을 고려하여 테이블로 마크업하였습니다.
@@ -24,19 +53,31 @@ const AssetDetail: React.FC = () => {
               <th scope="row" className="text-left font-normal py-8">
                 분류
               </th>
-              <td className="text-end font-semibold">자산</td>
+              <td className="text-end font-semibold">
+                {ASSET_TYPE_NAME[type]}
+              </td>
             </tr>
             <tr>
               <th scope="row" className="text-left font-normal py-8">
                 자산가치
               </th>
-              <td className="text-end font-semibold">1,555원</td>
+              <td className="text-end font-semibold">
+                <NumericFormat
+                  className="w-full outline-none text-18 font-bold text-end"
+                  thousandSeparator=","
+                  suffix="원"
+                  value={value}
+                  readOnly={true}
+                />
+              </td>
             </tr>
             <tr>
               <th scope="row" className="text-left font-normal py-8s">
                 메모
               </th>
-              <td className="text-end font-semibold">메모내용</td>
+              <td className="text-end font-semibold">
+                {memo || (params.id && <MemoCTAButton id={params.id} />)}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -47,7 +88,7 @@ const AssetDetail: React.FC = () => {
             <TextButton label="삭제하기" onClick={() => console.log("dd")} />
             <TextButton
               label="수정하기"
-              onClick={() => navigate("/register?editMode=true")}
+              onClick={() => navigate(`/register/edit/${params.id}`)}
             />
           </div>
         </div>

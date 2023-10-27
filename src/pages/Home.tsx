@@ -1,15 +1,10 @@
-import { useNavigate, useLoaderData } from "react-router-dom";
+import { useNavigate, useLoaderData, redirect } from "react-router-dom";
 import { TextButton } from "@/features/ui/components";
-import {
-  AssetSummaryArcodion,
-  SummaryHeaderSection,
-} from "@/features/asset/components";
+import { AssetSummaryArcodion, SummaryHeaderSection } from "@/features/asset";
 import { AssetModel } from "@/features/asset/model";
 import { AssetType } from "@/features/asset/type";
 import { LiabilityModel } from "@/features/liability/model";
-// import { getAssestQuery } from "@/features/asset/api/getAssets";
-// import { getLiabilitiesQuery } from "@/features/liability/api/getLiabilities";
-import { useQuery } from "@tanstack/react-query";
+
 import { getAssets } from "@/features/asset/api/getAssets";
 import { getLiabilities } from "@/features/liability/api/getLiabilities";
 
@@ -24,23 +19,14 @@ import { getLiabilities } from "@/features/liability/api/getLiabilities";
 export const homeLoader = async () => {
   // 자산 가져오기
   const assets = await getAssets();
-  // const assetsQuery = getAssestQuery();
-  // const assetsQueryFn =
-  //   queryClient.getQueryData(assetsQuery.queryKey) ??
-  //   (await queryClient.fetchQuery(assetsQuery));
 
-  // const liablitiesQuery = getLiabilitiesQuery();
-  // const liabilitiesQueryFn =
-  //   queryClient.getQueryData(liablitiesQuery.queryKey) ??
-  //   (await queryClient.fetchQuery(liablitiesQuery));
-
-  // // 부채 가져오기
+  // 부채 가져오기
   const liabilities = await getLiabilities();
 
-  // // 자산도 없고, 부채도 없으면 등록 페이지로 이동합니다.
-  // if (assets.length === 0 && liabilities.length === 0) {
-  //   return redirect("/register");
-  // }
+  // 자산도 없고, 부채도 없으면 등록 페이지로 이동합니다.
+  if (assets.length === 0 && liabilities.length === 0) {
+    return redirect("/register");
+  }
   return { assets, liabilities };
 };
 
@@ -50,15 +36,11 @@ export const homeLoader = async () => {
  * @returns
  */
 const Home: React.FC = () => {
-  console.log("HOme");
   const navigate = useNavigate();
   const { assets, liabilities } = useLoaderData() as {
     assets: AssetModel[];
     liabilities: LiabilityModel[];
   };
-  // const { data: contact } = useQuery(contactDetailQuery(params.contactId));
-
-  console.log("render", assets, liabilities);
 
   const sumAssetValue = assets.reduce(
     (acc, cur) => acc + cur.value,
