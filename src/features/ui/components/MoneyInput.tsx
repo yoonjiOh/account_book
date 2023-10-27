@@ -80,7 +80,7 @@ const MoneyInput: React.FC<MoneyInputProps> = ({
                 );
               }}
             />
-            {isDirty && (
+            {isDirty && focused && (
               <div className="absolute top-30 right-19">
                 <InputClearButtonIcon onClick={onClickClearButton} />
               </div>

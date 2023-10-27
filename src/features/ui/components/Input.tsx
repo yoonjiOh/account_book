@@ -5,7 +5,7 @@ import { InputClearButtonIcon } from "@/features/ui/components/icons";
 import { IFormInput } from "@/features/asset/components/RegisterAssetForm";
 
 interface InputProps {
-  type: "text" | "number";
+  type: "text";
   label: Path<IFormInput>;
   name: string;
   placeholder: string;
@@ -65,7 +65,7 @@ const Input: React.FC<InputProps> = ({
               aria-invalid={!!errorMessage}
               aria-describedby={errorMessage ? `${label}-error` : undefined}
             />
-            {isDirty && (
+            {isDirty && focused && (
               <div className="absolute top-30 right-19">
                 <InputClearButtonIcon onClick={onClickClearButton} />
               </div>

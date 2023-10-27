@@ -1,11 +1,12 @@
-export type CreateAssetRequestDTO = {
+export type CreateLiabilityRequestDTO = {
   name: string;
   amount: number;
   type: "ASSETS" | "LIABILITIES";
   memo?: string;
 };
 
-export type UpdateAssetRequestDTO = {
+export type UpdateLiabilityRequestDTO = {
+  id?: number;
   name?: string;
   amount?: number;
   type?: "ASSETS" | "LIABILITIES";

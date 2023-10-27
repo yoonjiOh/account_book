@@ -9,6 +9,7 @@ export interface AssetModel {
   name: string;
   value: number;
   type: AssetType.ASSETS;
+  memo: string;
 }
 
 // mapper 함수를 통해 API 응답을 AssetModel 로 변환합니다.
@@ -20,6 +21,7 @@ export const mapToAssetModel = (dto: AssetResponseDto): AssetModel => {
     name: dto.name,
     value: dto.amount,
     type: AssetType.ASSETS,
+    memo: dto.memo || "",
   };
 };
 
@@ -27,11 +29,18 @@ export const mapToAssetRequetDto = (
   data: IFormInput,
 ): CreateAssetRequestDTO => {
   return {
-    data: {
-      name: data.assetName,
-      amount: data.assetValue,
-      type: data.assetType,
-      memo: data.assetMemo,
-    },
+    name: data.assetName,
+    amount: data.assetValue,
+    type: data.assetType,
+    memo: data.assetMemo,
+  };
+};
+
+export const mapToIformInput = (data: AssetModel): IFormInput => {
+  return {
+    assetName: data.name,
+    assetValue: data.value,
+    assetType: data.type,
+    assetMemo: data.memo,
   };
 };

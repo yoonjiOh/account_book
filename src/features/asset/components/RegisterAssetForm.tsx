@@ -6,20 +6,18 @@ import {
   MoneyInput,
   SubmitButton,
 } from "@/features/ui/components";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useForm } from "react-hook-form";
 
 import {
   CategoryBottomSheetContent,
   CategoryBottomSheetTitle,
-} from "@/features/asset/components";
+} from "@/features/asset";
 import { MAX_ASSET_REGISTRATION_VALUE } from "@/features/asset/const";
 import { AssetType } from "@/features/asset/type";
 
-import { useCreateAsset } from "@/features/asset/api/createAsset";
-import { CreateAssetRequestDTO } from "@/features/asset/dto/request";
-import { mapToAssetRequetDto } from "@/features/asset/model";
+import { AssetModel, mapToIformInput } from "@/features/asset/model";
 
 export interface IFormInput {
   assetName: string;
@@ -54,7 +52,17 @@ const schema = yup.object().shape({
     .max(30, "최대 30자까지 입력 가능해요"),
 });
 
-const RegisterAssetForm: React.FC = () => {
+interface RegisterAssetFormProps {
+  data?: AssetModel;
+  isEditMode?: boolean;
+  onSubmit: (data: IFormInput) => void;
+}
+// RegitserAssetForm 은 비즈니스 로직과 분리되어야 한다.
+const RegisterAssetForm: React.FC<RegisterAssetFormProps> = ({
+  data,
+  isEditMode,
+  onSubmit,
+}) => {
   const {
     register,
     resetField,
@@ -64,12 +72,12 @@ const RegisterAssetForm: React.FC = () => {
     getValues,
     setValue,
     trigger,
-    formState: { errors, dirtyFields },
+    formState: { errors },
   } = useForm<IFormInput>({
     mode: "onBlur", // 요구사항: 입력폼의 검증은 blur 되는 시점에 동작하도록
     resolver: yupResolver(schema),
+    defaultValues: data && mapToIformInput(data),
   });
-  const createAsssetMutation = useCreateAsset();
 
   const values = getValues();
   // 필수값(자산명, 분류, 자산가치)들이 다 등록되었을 경우에만 true 반환
@@ -84,12 +92,6 @@ const RegisterAssetForm: React.FC = () => {
       trigger("assetType");
   }, [values.assetName, values.assetType, values.assetValue, values.assetMemo]);
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    // 호출 전에 request dto 로 변환
-    const asset: CreateAssetRequestDTO = mapToAssetRequetDto(data);
-    // 자산 등록 API 호출
-    await createAsssetMutation.mutateAsync(asset);
-  };
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
 
   const handleSelectType = (type: AssetType) => {
@@ -99,6 +101,7 @@ const RegisterAssetForm: React.FC = () => {
   };
 
   const currentAssetType = getValues("assetType");
+
   return (
     <>
       <form className="mt-26" onSubmit={handleSubmit(onSubmit)}>
@@ -109,10 +112,12 @@ const RegisterAssetForm: React.FC = () => {
             label="assetName"
             name="자산명"
             register={register}
-            onClickClearButton={() => resetField("assetName")}
+            onClickClearButton={() => {
+              resetField("assetName");
+            }}
             placeholder="예) 현금, 금, 빌린 돈"
             errorMessage={errors.assetName && errors.assetName.message}
-            isDirty={!!dirtyFields.assetName}
+            isDirty={!!values.assetName || !!watch("assetName")}
           />
 
           <Divider />
@@ -153,7 +158,7 @@ const RegisterAssetForm: React.FC = () => {
             onClickClearButton={() => resetField("assetMemo")}
             placeholder="메모를 입력하세요"
             errorMessage={errors.assetMemo && errors.assetMemo.message}
-            isDirty={!!dirtyFields.assetMemo}
+            isDirty={!!values.assetMemo || !!watch("assetMemo")}
           />
         </div>
 
@@ -177,7 +182,7 @@ const RegisterAssetForm: React.FC = () => {
       </form>
       <div className="fixed w-full bottom-0 left-0 px-16">
         <SubmitButton
-          label="등록하기"
+          label={isEditMode ? "수정하기" : "등록하기"}
           disabled={!isSubmitable}
           onClick={handleSubmit(onSubmit)}
         />
