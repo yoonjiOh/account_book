@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Path, UseFormRegister } from "react-hook-form";
 import { Tooltip } from "@/features/ui/components";
 import { InputClearButtonIcon } from "@/features/ui/components/icons";
-import { IFormInput } from "@/features/asset/components/RegisterAssetForm";
+import { IFormInput } from "@/features/asset/component/RegisterAssetForm";
 
 interface InputProps {
   type: "text";

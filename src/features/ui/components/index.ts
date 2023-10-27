@@ -12,3 +12,4 @@ export { default as TextButton } from "@/features/ui/components/buttons/TextButt
 export { default as RoundButton } from "@/features/ui/components/buttons/RoundButton";
 export { Arcodion } from "@/features/ui/components/Arcodion";
 export { default as AlertPopup } from "@/features/ui/components/AlertPopup";
+export { default as Fallback } from "@/features/ui/components/Fallback";

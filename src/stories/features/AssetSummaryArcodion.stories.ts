@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { AssetSummaryArcodion } from "@/features/asset/components";
+import { AssetSummaryArcodion } from "@/features/asset/component";
 
 const meta: Meta<typeof AssetSummaryArcodion> = {
   title: "features/asset/AssetSummaryArcodion",

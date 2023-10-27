@@ -10,7 +10,7 @@ import { SubmitHandler } from "react-hook-form";
 import { useEffect, useRef } from "react";
 import { mapToAssetRequetDto } from "@/features/asset/model";
 import { CreateAssetRequestDTO } from "@/features/asset/dto/request";
-import { IFormInput } from "@/features/asset/components/RegisterAssetForm";
+import { IFormInput } from "@/features/asset/component/RegisterAssetForm";
 import { AssetType } from "@/features/asset/type";
 
 const RegisterAsset: React.FC = () => {
