@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import {
   AlertPopup,
+  Navigation,
   RoundButton,
   TextButton,
   Title,
@@ -59,6 +60,7 @@ const AssetDetail: React.FC = () => {
   return (
     <>
       <section className="flex flex-col items-center w-screen h-screen pt-88">
+        <Navigation title="상세" goBack={true} close={false} />
         <div className="w-325">
           <Title title={name} />
           {/**

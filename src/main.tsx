@@ -4,9 +4,12 @@ import { RouterProvider } from "react-router-dom";
 import routes from "./routes";
 
 import "./index.css";
+import { ErrorBoundary, Fallback } from "@/features/ui/components";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={routes} />
-  </React.StrictMode>
+    <ErrorBoundary fallback={<Fallback />}>
+      <RouterProvider router={routes} />
+    </ErrorBoundary>
+  </React.StrictMode>,
 );

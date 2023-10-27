@@ -1,4 +1,4 @@
-import { Title } from "@/features/ui/components";
+import { Fallback, Navigation, Title } from "@/features/ui/components";
 import { RegisterAssetForm } from "@/features/asset";
 import { useLocation, useSearchParams } from "react-router-dom";
 import {
@@ -12,6 +12,7 @@ import { mapToAssetRequetDto } from "@/features/asset/model";
 import { CreateAssetRequestDTO } from "@/features/asset/dto/request";
 import { IFormInput } from "@/features/asset/component/RegisterAssetForm";
 import { AssetType } from "@/features/asset/type";
+import ErrorBoundary from "@/features/ui/components/ErrorBoundary";
 
 const RegisterAsset: React.FC = () => {
   const { pathname } = useLocation();
@@ -91,19 +92,29 @@ const RegisterAsset: React.FC = () => {
 
   if (isEditMode && assetQuery?.isLoading) return <div>loading...</div>;
 
+  if (updateAssetMutation.error) {
+    return (
+      <div className="w-screen text-center flex justfiy-center">
+        {updateAssetMutation.error.message}
+      </div>
+    );
+  }
+
+  const title = isEditMode ? "기타자산 수정" : "기타자산 등록";
   return (
     <section className="flex flex-col items-center w-screen h-screen pt-88">
+      <Navigation title={title} goBack={false} close={true} />
       <div className="w-325">
         <Title title={"현금부터 실물 자산까지\n 직접 등록해 보세요"} />
 
-        {
+        <ErrorBoundary fallback={<Fallback />}>
           <RegisterAssetForm
             data={assetQuery?.data}
             onSubmit={onSubmit}
             isEditMode={isEditMode}
             ref={submitButtonRef}
           />
-        }
+        </ErrorBoundary>
       </div>
     </section>
   );

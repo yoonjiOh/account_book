@@ -13,3 +13,4 @@ export { default as RoundButton } from "@/features/ui/components/buttons/RoundBu
 export { Arcodion } from "@/features/ui/components/Arcodion";
 export { default as AlertPopup } from "@/features/ui/components/AlertPopup";
 export { default as Fallback } from "@/features/ui/components/Fallback";
+export { default as ErrorBoundary } from "@/features/ui/components/ErrorBoundary";

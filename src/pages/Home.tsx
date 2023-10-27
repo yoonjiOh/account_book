@@ -1,5 +1,5 @@
 import { useNavigate, redirect } from "react-router-dom";
-import { Fallback, TextButton } from "@/features/ui/components";
+import { Fallback, Navigation, TextButton } from "@/features/ui/components";
 import { AssetType } from "@/features/asset/type";
 
 import { getAssets } from "@/features/asset/api/getAssets";
@@ -38,6 +38,7 @@ const Home: React.FC = () => {
 
   return (
     <section className="flex flex-col items-center w-screen h-screen pt-88">
+      <Navigation title={window.document.title} goBack={true} close={false} />
       {/* 자산 합계 영역 */}
       <ErrorBoundary fallback={<Fallback />}>
         <TotalAssetSummaryContainer />
