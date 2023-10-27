@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import {
   BottomSheet,
   Input,
@@ -56,140 +56,143 @@ interface RegisterAssetFormProps {
   data?: AssetModel;
   isEditMode?: boolean;
   onSubmit: (data: IFormInput) => void;
+  ref?: React.Ref<HTMLDivElement>;
 }
-const RegisterAssetForm: React.FC<RegisterAssetFormProps> = ({
-  data,
-  isEditMode,
-  onSubmit,
-}) => {
-  console.log({ data });
-  const {
-    register,
-    resetField,
-    handleSubmit,
-    control,
-    watch,
-    getValues,
-    setValue,
-    trigger,
-    formState: { errors },
-  } = useForm<IFormInput>({
-    mode: "onBlur", // 요구사항: 입력폼의 검증은 blur 되는 시점에 동작하도록
-    resolver: yupResolver(schema),
-    defaultValues: data && mapToIformInput(data),
-  });
+const RegisterAssetForm = forwardRef<HTMLDivElement, RegisterAssetFormProps>(
+  ({ data, isEditMode, onSubmit }, ref) => {
+    const {
+      register,
+      resetField,
+      handleSubmit,
+      control,
+      watch,
+      getValues,
+      setValue,
+      trigger,
+      formState: { errors },
+    } = useForm<IFormInput>({
+      mode: "onBlur", // 요구사항: 입력폼의 검증은 blur 되는 시점에 동작하도록
+      resolver: yupResolver(schema),
+      defaultValues: data && mapToIformInput(data),
+    });
 
-  const values = getValues();
-  // 필수값(자산명, 분류, 자산가치)들이 다 등록되었을 경우에만 true 반환
-  const REQUIRED_FIELDS = ["assetName", "assetType", "assetValue"];
-  const isSubmitable = REQUIRED_FIELDS.every((key) => {
-    return !!Object.keys(values).includes(key);
-  });
+    const values = getValues();
+    // 필수값(자산명, 분류, 자산가치)들이 다 등록되었을 경우에만 true 반환
+    const REQUIRED_FIELDS = ["assetName", "assetType", "assetValue"];
+    const isSubmitable = REQUIRED_FIELDS.every((key) => {
+      return !!Object.keys(values).includes(key);
+    });
 
-  useEffect(() => {
-    // 자산명, 자산가치가 입력되었을 경우에만 자산분류 필드를 검증하도록
-    if (!isSubmitable && values.assetName && values.assetValue)
+    useEffect(() => {
+      // 자산명, 자산가치가 입력되었을 경우에만 자산분류 필드를 검증하도록
+      if (!isSubmitable && values.assetName && values.assetValue)
+        trigger("assetType");
+    }, [
+      values.assetName,
+      values.assetType,
+      values.assetValue,
+      values.assetMemo,
+    ]);
+
+    const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
+
+    const handleSelectType = (type: AssetType) => {
+      setValue("assetType", type);
       trigger("assetType");
-  }, [values.assetName, values.assetType, values.assetValue, values.assetMemo]);
+      setBottomSheetOpen(false);
+    };
 
-  const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
+    const currentAssetType = getValues("assetType");
 
-  const handleSelectType = (type: AssetType) => {
-    setValue("assetType", type);
-    trigger("assetType");
-    setBottomSheetOpen(false);
-  };
+    return (
+      <>
+        <form className="mt-26" onSubmit={handleSubmit(onSubmit)}>
+          <div className="w-full border border-lightGray rounded-3xl">
+            {/* 자산명을 Input 컴포넌트에 입력 */}
+            <Input
+              type="text"
+              label="assetName"
+              name="자산명"
+              register={register}
+              onClickClearButton={() => {
+                resetField("assetName");
+              }}
+              placeholder="예) 현금, 금, 빌린 돈"
+              errorMessage={errors.assetName && errors.assetName.message}
+              isDirty={!!values.assetName || !!watch("assetName")}
+            />
 
-  const currentAssetType = getValues("assetType");
+            <Divider />
 
-  return (
-    <>
-      <form className="mt-26" onSubmit={handleSubmit(onSubmit)}>
-        <div className="w-full border border-lightGray rounded-3xl">
-          {/* 자산명을 Input 컴포넌트에 입력 */}
-          <Input
-            type="text"
-            label="assetName"
-            name="자산명"
-            register={register}
-            onClickClearButton={() => {
-              resetField("assetName");
-            }}
-            placeholder="예) 현금, 금, 빌린 돈"
-            errorMessage={errors.assetName && errors.assetName.message}
-            isDirty={!!values.assetName || !!watch("assetName")}
+            {/* 자산분류를 BottomSheet 를 열어 선택 */}
+            <InputButton
+              label="분류"
+              inputValue={ASSET_CATEGORY_MAP[currentAssetType]}
+              errorMessage={errors.assetType && errors.assetType.message}
+              placeholder="선택하세요"
+              onClick={() => setBottomSheetOpen(true)}
+            />
+
+            <Divider />
+
+            {/* 자산가치를 입력 */}
+            <MoneyInput
+              label="assetValue"
+              name="자산가치"
+              control={control}
+              onClickClearButton={() => {
+                resetField("assetValue");
+              }}
+              setValue={setValue}
+              isDirty={!!watch("assetValue")}
+              placeholder="금액을 입력하세요"
+              errorMessage={errors.assetValue && errors.assetValue.message}
+            />
+
+            <Divider />
+
+            {/* 메모를 Input 컴포넌트에 입력 */}
+            <Input
+              type="text"
+              label="assetMemo"
+              name="메모"
+              register={register}
+              onClickClearButton={() => resetField("assetMemo")}
+              placeholder="메모를 입력하세요"
+              errorMessage={errors.assetMemo && errors.assetMemo.message}
+              isDirty={!!values.assetMemo || !!watch("assetMemo")}
+            />
+          </div>
+
+          <BottomSheet
+            isOpen={bottomSheetOpen}
+            onClose={() => setBottomSheetOpen(false)}
+            header={<CategoryBottomSheetTitle />}
+            children={
+              <>
+                {options.map((option) => (
+                  <CategoryBottomSheetContent
+                    key={option.id}
+                    assetCategory={option}
+                    checked={watch("assetType") === option.id}
+                    onClick={() => handleSelectType(option.id)}
+                  />
+                ))}
+              </>
+            }
           />
-
-          <Divider />
-
-          {/* 자산분류를 BottomSheet 를 열어 선택 */}
-          <InputButton
-            label="분류"
-            inputValue={ASSET_CATEGORY_MAP[currentAssetType]}
-            errorMessage={errors.assetType && errors.assetType.message}
-            placeholder="선택하세요"
-            onClick={() => setBottomSheetOpen(true)}
-          />
-
-          <Divider />
-
-          {/* 자산가치를 입력 */}
-          <MoneyInput
-            label="assetValue"
-            name="자산가치"
-            control={control}
-            onClickClearButton={() => {
-              resetField("assetValue");
-            }}
-            setValue={setValue}
-            isDirty={!!watch("assetValue")}
-            placeholder="금액을 입력하세요"
-            errorMessage={errors.assetValue && errors.assetValue.message}
-          />
-
-          <Divider />
-
-          {/* 메모를 Input 컴포넌트에 입력 */}
-          <Input
-            type="text"
-            label="assetMemo"
-            name="메모"
-            register={register}
-            onClickClearButton={() => resetField("assetMemo")}
-            placeholder="메모를 입력하세요"
-            errorMessage={errors.assetMemo && errors.assetMemo.message}
-            isDirty={!!values.assetMemo || !!watch("assetMemo")}
+        </form>
+        <div ref={ref} className="fixed w-full bottom-0 left-0 px-16">
+          <SubmitButton
+            label={isEditMode ? "수정하기" : "등록하기"}
+            disabled={!isSubmitable}
+            onClick={handleSubmit(onSubmit)}
           />
         </div>
-
-        <BottomSheet
-          isOpen={bottomSheetOpen}
-          onClose={() => setBottomSheetOpen(false)}
-          header={<CategoryBottomSheetTitle />}
-          children={
-            <>
-              {options.map((option) => (
-                <CategoryBottomSheetContent
-                  key={option.id}
-                  assetCategory={option}
-                  checked={watch("assetType") === option.id}
-                  onClick={() => handleSelectType(option.id)}
-                />
-              ))}
-            </>
-          }
-        />
-      </form>
-      <div className="fixed w-full bottom-0 left-0 px-16">
-        <SubmitButton
-          label={isEditMode ? "수정하기" : "등록하기"}
-          disabled={!isSubmitable}
-          onClick={handleSubmit(onSubmit)}
-        />
-      </div>
-    </>
-  );
-};
+      </>
+    );
+  },
+);
 
 export default RegisterAssetForm;
 

@@ -7,6 +7,7 @@ import {
   useUpdateAsset,
 } from "@/features/asset/api/";
 import { SubmitHandler } from "react-hook-form";
+import { useEffect, useRef } from "react";
 import { mapToAssetRequetDto } from "@/features/asset/model";
 import { CreateAssetRequestDTO } from "@/features/asset/dto/request";
 import { IFormInput } from "@/features/asset/components/RegisterAssetForm";
@@ -15,6 +16,47 @@ import { AssetType } from "@/features/asset/type";
 const RegisterAsset: React.FC = () => {
   const { pathname } = useLocation();
   const [searchParams] = useSearchParams();
+
+  const submitButtonRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const visualViewport = window.visualViewport;
+    const initialInnerHeight = window.innerHeight;
+
+    // 키보드가 올라갈때 submit button 을 위로 올립니다.
+    // initialInnerHeight 는 키보드가 올라가기 전의 높이입니다.
+    // 처음 렌더링 될 때 화면의 높이 - 현재 화면 높이 - 키보드의 높이 만큼 submit button 을 위로 올립니다.
+    const applyButtonTransform = () => {
+      const visualViewport = window.visualViewport;
+      if (!visualViewport || !submitButtonRef.current) return;
+
+      const transformYheight =
+        initialInnerHeight - visualViewport.height - visualViewport.offsetTop;
+      submitButtonRef.current.style.transition = "transform 0.1s";
+      submitButtonRef.current.style.transform = `translateY(-${transformYheight}px)`;
+    };
+
+    applyButtonTransform();
+
+    const handleViewportChanges = () => {
+      if (
+        // 키보드가 숨겨질 때 입니다. (visualViewport.height 가 처음 높이와 같아질 때)
+        visualViewport?.height === initialInnerHeight &&
+        submitButtonRef.current
+      ) {
+        submitButtonRef.current.style.transition = "transform 0.1s";
+        submitButtonRef.current.style.transform = "translateY(0)";
+      } else {
+        applyButtonTransform();
+      }
+    };
+
+    visualViewport?.addEventListener("resize", handleViewportChanges);
+
+    return () => {
+      visualViewport?.removeEventListener("resize", handleViewportChanges);
+    };
+  }, [submitButtonRef]);
 
   // type 을 url query 로부터 가져옵니다.
   const type = searchParams.get("type") as AssetType;
@@ -59,6 +101,7 @@ const RegisterAsset: React.FC = () => {
             data={assetQuery?.data}
             onSubmit={onSubmit}
             isEditMode={isEditMode}
+            ref={submitButtonRef}
           />
         }
       </div>
