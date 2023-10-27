@@ -12,3 +12,4 @@ export { default as ArrowUpIcon } from "@/features/ui/components/icons/ArrowUpIc
 export { default as AssetIcon } from "@/features/ui/components/icons/AssetIcon";
 export { default as LiabilityIcon } from "@/features/ui/components/icons/LiabilityIcon";
 export { default as ArrowToggleIcon } from "@/features/ui/components/icons/ArrowToggleIcon";
+export { default as ArrowRightBlueIcon } from "@/features/ui/components/icons/ArrowRightBlueIcon";

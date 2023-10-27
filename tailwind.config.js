@@ -46,6 +46,9 @@ module.exports = {
 
         // yellow 계통
         turbo: "#FFD600",
+
+        // blue 계통
+        azureRadiance: "#008DFF",
       },
     },
   },

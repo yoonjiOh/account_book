@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Arcodion } from "@/features/ui/components";
 import { ArrowToggleIcon } from "@/features/ui/components/icons";
-import { AssetSummaryItem } from "@/features/asset/components";
+import { AssetSummaryItem } from "@/features/asset";
 import { AssetModel } from "@/features/asset/model";
 import { LiabilityModel } from "@/features/liability/model";
 import { AssetType } from "@/features/asset/type";
