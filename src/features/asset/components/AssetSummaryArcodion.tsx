@@ -2,15 +2,21 @@ import { useState } from "react";
 import { Arcodion } from "@/features/ui/components";
 import { ArrowToggleIcon } from "@/features/ui/components/icons";
 import { AssetSummaryItem } from "@/features/asset/components";
+import { AssetModel } from "@/features/asset/model";
+import { LiabilityModel } from "@/features/liability/model";
+import { AssetType } from "@/features/asset/type";
+import { ASSET_TYPE_NAME } from "@/features/asset/const";
 
 interface AssetSummaryArcodionProps {
-  type: "ASSETS" | "LIABILITIES";
+  type: AssetType;
   totalValue: number;
+  data: AssetModel[] | LiabilityModel[];
 }
 
 const AssetSummaryArcodion: React.FC<AssetSummaryArcodionProps> = ({
   type,
   totalValue,
+  data,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -21,18 +27,19 @@ const AssetSummaryArcodion: React.FC<AssetSummaryArcodionProps> = ({
   return (
     <Arcodion>
       <Arcodion.ArcodionSummary
-        title={type === "ASSETS" ? "자산" : "부채"}
+        title={
+          type === AssetType.ASSETS
+            ? ASSET_TYPE_NAME[AssetType.ASSETS]
+            : ASSET_TYPE_NAME[AssetType.LIABILITIES]
+        }
         value={totalValue}
         onClick={onClick}
         expandIcon={<ArrowToggleIcon direction={isExpanded ? "up" : "down"} />}
       />
       <Arcodion.ArcodionDetail isExpanded={isExpanded}>
-        <AssetSummaryItem type={type} assetName="현금" assetValue={10000} />
-        <AssetSummaryItem
-          type={type}
-          assetName="골드바"
-          assetValue={25000000}
-        />
+        {data.map((item) => {
+          return <AssetSummaryItem key={item.id} type={type} asset={item} />;
+        })}
       </Arcodion.ArcodionDetail>
     </Arcodion>
   );

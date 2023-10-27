@@ -10,8 +10,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import {
   CategoryBottomSheetContent,
   CategoryBottomSheetTitle,
-  MAX_ASSET_REGISTRATION_VALUE,
 } from "@/features/asset/components";
+import { MAX_ASSET_REGISTRATION_VALUE } from "@/features/asset/const";
 
 interface IFormInput {
   assetName: string;
