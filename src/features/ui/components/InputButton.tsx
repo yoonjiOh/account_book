@@ -32,7 +32,7 @@ const InputButton: React.FC<InputButtonProps> = ({
         focused && "border-2 border-ebony cursor-pointer"
       }`}
       role="button"
-      aria-label="자산 분류 보기"
+      data-testid={`button-${label}`}
       tabIndex={0}
       onClick={handleClick}>
       <div className="relative">
@@ -50,6 +50,7 @@ const InputButton: React.FC<InputButtonProps> = ({
               {label}
             </label>
             <input
+              data-testid={`input-${label}`}
               readOnly
               className="w-full outline-none text-20 leading-28 text-ebony placeholder:text-20 placeholder:text-lightGray placeholder:leading-28 cursor-pointer"
               type="text"

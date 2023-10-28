@@ -18,7 +18,9 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   return (
     <>
       <DimmedBackground onClick={onClose} />
-      <div className="fixed w-full left-0 bottom-0 flex items-center justify-center z-50 transform transition-transform duration-300 ease-in-out">
+      <div
+        data-testid="bottom-sheet"
+        className="fixed w-full left-0 bottom-0 flex items-center justify-center z-50 transform transition-transform duration-300 ease-in-out">
         <div className="relative bg-white w-full p-24 rounded-t-3xl">
           <div className="flex justify-between items-center mb-2">
             <div className="text-xl font-semibold pb-16">{header}</div>

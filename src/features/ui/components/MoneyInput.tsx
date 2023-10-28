@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Controller } from "react-hook-form";
 import { InputClearButtonIcon } from "@/features/ui/components/icons";
 import { Tooltip } from "@/features/ui/components";
-import { NumericFormat } from "react-number-format";
+import { NumberFormatValues, NumericFormat } from "react-number-format";
+import { AssetType } from "@/features/asset";
 
 interface MoneyInputProps {
   label: string;
@@ -13,6 +14,7 @@ interface MoneyInputProps {
   setValue: any;
   errorMessage?: string;
   onClickClearButton: () => void;
+  assetType: AssetType;
 }
 
 // MoneyInput 컴포넌트는 useForm 의 control 과 setValue 를 인자로 받아 사용합니다.
@@ -31,13 +33,17 @@ const MoneyInput: React.FC<MoneyInputProps> = ({
 }) => {
   const [focused, setFocused] = useState(false);
 
+  const handleInputChange = (values: NumberFormatValues) => {
+    setValue(label, values.floatValue);
+  };
+
   return (
     <div
       className={`relative bg-white pl-19 pr-40 pt-17 pb-18 h-80 rounded-3xl ${
         focused && "border-2 border-ebony"
       } cursor-pointer`}
       role="button"
-      aria-label="자산명 입력"
+      data-testid={`button-${label}`}
       tabIndex={0}
       onClick={() => setFocused(true)}>
       <div>
@@ -65,11 +71,10 @@ const MoneyInput: React.FC<MoneyInputProps> = ({
                     className="w-full outline-none"
                     thousandSeparator=","
                     suffix="원"
+                    data-testid={`input-${label}`}
                     getInputRef={ref}
                     value={isDirty ? value : ""}
-                    onValueChange={(values) => {
-                      setValue(label, values.floatValue);
-                    }}
+                    onValueChange={(values) => handleInputChange(values)}
                     placeholder={placeholder}
                     aria-invalid={!!errorMessage}
                     aria-describedby={

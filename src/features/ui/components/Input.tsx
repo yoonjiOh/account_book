@@ -35,17 +35,18 @@ const Input: React.FC<InputProps> = ({
         focused && "border-2 border-ebony"
       } cursor-pointer`}
       role="button"
+      data-testid={`button-${label}`}
       aria-label="자산명 입력"
       tabIndex={0}
       onClick={() => setFocused(true)}>
       <div>
         {!isDirty && !focused ? (
           <>
-            <label
-              htmlFor={label}
+            <div
+              key={label}
               className="inline-block flex items-center text-20 h-full leading-28 align-middle font-medium text-left text-lightGray">
               {name}
-            </label>
+            </div>
           </>
         ) : (
           <>
@@ -57,6 +58,7 @@ const Input: React.FC<InputProps> = ({
               {name}
             </label>
             <input
+              data-testid={`input-${label}`}
               className="w-full outline-none text-20 leading-28 text-ebony placeholder:text-20 placeholder:text-lightGray placeholder:leading-28 truncate"
               type={type}
               {...register(label)}

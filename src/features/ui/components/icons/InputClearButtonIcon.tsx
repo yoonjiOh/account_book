@@ -9,6 +9,7 @@ const InputClearButtonIcon: React.FC<InputClearButtonIconProps> = ({
 }) => {
   return (
     <div
+      data-testid="input-button-clear"
       role="button"
       className="flex items-center justify-center"
       onClick={onClick}

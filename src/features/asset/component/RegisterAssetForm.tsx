@@ -48,7 +48,7 @@ const schema = yup.object().shape({
     .required("자산 가치를 입력해 주세요"),
   assetMemo: yup
     .string()
-    .min(2, "최소 2자를 입력해주세요")
+    .min(3, "최소 3자를 입력해주세요")
     .max(30, "최대 30자까지 입력 가능해요"),
 });
 
@@ -77,16 +77,19 @@ const RegisterAssetForm = forwardRef<HTMLDivElement, RegisterAssetFormProps>(
     });
 
     const values = getValues();
+    const watchAssetType = watch("assetType");
+    const watchAssetValue = watch("assetValue");
+    const watchAssetName = watch("assetName");
     // 필수값(자산명, 분류, 자산가치)들이 다 등록되었을 경우에만 true 반환
-    const REQUIRED_FIELDS = ["assetName", "assetType", "assetValue"];
-    const isSubmitable = REQUIRED_FIELDS.every((key) => {
-      return !!Object.keys(values).includes(key);
-    });
+    const isSubmitable = watchAssetName && watchAssetType && watchAssetValue;
 
     useEffect(() => {
       // 자산명, 자산가치가 입력되었을 경우에만 자산분류 필드를 검증하도록
-      if (!isSubmitable && values.assetName && values.assetValue)
+      if (!isSubmitable && values.assetName && values.assetValue) {
         trigger("assetType");
+      }
+
+      convertMoneyByAssetType();
     }, [
       values.assetName,
       values.assetType,
@@ -103,6 +106,20 @@ const RegisterAssetForm = forwardRef<HTMLDivElement, RegisterAssetFormProps>(
     };
 
     const currentAssetType = getValues("assetType");
+
+    const convertMoneyByAssetType = () => {
+      // watchAssetType 이 AssetType.ASSETS 인데 watchAssetValue 가 음수이면 양수로 변경
+      if (getValues("assetType") === AssetType.ASSETS && watchAssetValue < 0) {
+        setValue("assetValue", Math.abs(watchAssetValue));
+      }
+      // watchAssetType 이 AssetType.LIABILITIES 인데 watchAssetValue 가 양수이면 음수로 변경
+      if (
+        getValues("assetType") === AssetType.LIABILITIES &&
+        watchAssetValue > 0
+      ) {
+        setValue("assetValue", -Math.abs(watchAssetValue));
+      }
+    };
 
     return (
       <>
@@ -140,6 +157,7 @@ const RegisterAssetForm = forwardRef<HTMLDivElement, RegisterAssetFormProps>(
               label="assetValue"
               name="자산가치"
               control={control}
+              assetType={watchAssetType}
               onClickClearButton={() => {
                 resetField("assetValue");
               }}

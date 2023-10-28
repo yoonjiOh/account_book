@@ -20,7 +20,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
     }),
   );
   return (
-    <Button onClick={onClick} classNames={"w-full"}>
+    <Button onClick={onClick} classNames={"w-full"} dataTestId="submit-button">
       <div className={`${buttonClasses}`}>
         <label className="font-medium text-18 leading-26">{label}</label>
       </div>
