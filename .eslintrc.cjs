@@ -8,6 +8,8 @@ module.exports = {
     "plugin:react-hooks/recommended",
     "plugin:import/recommended",
     "plugin:storybook/recommended",
+    "react-app",
+    "react-app/jest",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parserOptions: {ecmaVersion: "latest", sourceType: "module"},
