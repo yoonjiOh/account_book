@@ -7,8 +7,7 @@ import {
   TextButton,
   Title,
 } from "@/features/ui/components";
-import { getAssetQuery } from "@/features/asset/api/getAsset";
-import { useQuery } from "@tanstack/react-query";
+import { getAssetQuery, useGetAsset } from "@/features/asset/api/getAsset";
 import { ASSET_TYPE_NAME } from "@/features/asset/const";
 import { NumericFormat } from "react-number-format";
 import { MemoCTAButton } from "@/features/asset";
@@ -39,8 +38,10 @@ const AssetDetail: React.FC = () => {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
 
   const navigate = useNavigate();
-  const query = getAssetQuery(params.id as string, params.type as AssetType);
-  const { data, isLoading } = useQuery(query);
+  const { data, isLoading } = useGetAsset(
+    params.id as string,
+    params.type as AssetType,
+  );
 
   const useDeleteAssetMutation = useDeleteAsset(
     params.id as string,
@@ -57,6 +58,7 @@ const AssetDetail: React.FC = () => {
   if (isLoading) return <div>loading...</div>;
   const { name, type, value, memo } = data as AssetModel;
 
+  console.log("여기까지 오는건가...", isLoading);
   return (
     <>
       <section className="flex flex-col items-center w-screen h-screen pt-88">
@@ -102,8 +104,13 @@ const AssetDetail: React.FC = () => {
                 <th scope="row" className="text-left font-normal py-8s">
                   메모
                 </th>
-                <td className="text-end font-semibold">
-                  {memo || (params.id && <MemoCTAButton id={params.id} />)}
+                <td className="w-220 text-end font-semibold whitespace-pre-line">
+                  <div role="memo-value">
+                    {memo ||
+                      (params.id && (
+                        <MemoCTAButton id={params.id} type={type} />
+                      ))}
+                  </div>
                 </td>
               </tr>
             </tbody>
