@@ -21,6 +21,7 @@ module.exports = {
     "\\.svg$": "<rootDir>/jest/__mocks__/svg.js",
     "^@/(.*)$": "<rootDir>/src/$1",
     "@mocks/(.*)$": "<rootDir>/mocks/$1",
+    "@src/(.*)$": "<rootDir>/src/$1",
     "^components/(.*)": "<rootDir>/src/components/$1",
   },
   testPathIgnorePatterns: ["<rootDir>/node_modules/"],

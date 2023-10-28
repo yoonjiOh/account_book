@@ -1,14 +1,15 @@
-import { useNavigate, redirect } from "react-router-dom";
-import { Fallback, Navigation, TextButton } from "@/features/ui/components";
-import { AssetType } from "@/features/asset/type";
+import { redirect } from "react-router-dom";
+import { Fallback, Navigation } from "@/features/ui/components";
 
-import { getAssets } from "@/features/asset/api/getAssets";
+import ErrorBoundary from "@/features/ui/components/ErrorBoundary";
 import {
+  RegisterCTAButton,
   AssetListContainer,
   LiabilityListContainer,
   TotalAssetSummaryContainer,
-} from "@/features/asset/container";
-import ErrorBoundary from "@/features/ui/components/ErrorBoundary";
+  getAssets,
+  AssetType,
+} from "@/features/asset";
 
 /**
  * 홈 화면을 위한 데이터를 가져옵니다.
@@ -34,8 +35,6 @@ export const homeLoader = async () => {
  * @returns
  */
 const Home: React.FC = () => {
-  const navigate = useNavigate();
-
   return (
     <section className="flex flex-col items-center w-screen h-screen pt-88">
       <Navigation title={window.document.title} goBack={true} close={false} />
@@ -62,10 +61,7 @@ const Home: React.FC = () => {
 
       <div className="py-36">
         {/* 자산 등록 버튼 */}
-        <TextButton
-          label="기타 자산 등록"
-          onClick={() => navigate("/register")}
-        />
+        <RegisterCTAButton label="기타 자산 등록" />
       </div>
     </section>
   );
