@@ -23,6 +23,7 @@ const ArcodionSummary: React.FC<ArcodionSummaryProps> = ({
   return (
     <div
       className="px-24 pt-40 pb-16 flex items-center justify-between"
+      data-testid="arcodion-summary-button"
       onClick={onClick}
       role="button"
       tabIndex={0}
@@ -30,13 +31,18 @@ const ArcodionSummary: React.FC<ArcodionSummaryProps> = ({
       <span className="text-18 leading-26 align-middle">{title}</span>
       <div className="flex items-center">
         <NumericFormat
+          data-testid="readonly-input-for-asset-summary"
           className="w-full outline-none text-18 leading-26 font-bold text-end"
           thousandSeparator=","
           suffix="원"
           value={value}
           readOnly={true}
         />
-        <div className="flex items-center ml-6">{expandIcon}</div>
+        <div
+          data-testid="arcodion-expand-button"
+          className="flex items-center ml-6">
+          {expandIcon}
+        </div>
       </div>
     </div>
   );

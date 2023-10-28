@@ -10,7 +10,7 @@ const ArcodionDetail: React.FC<ArcodionDetailProps> = ({
   isExpanded,
 }) => {
   if (!isExpanded) return null;
-  return <div>{children}</div>;
+  return <div data-testid="arcodion-detail">{children}</div>;
 };
 
 export default ArcodionDetail;
