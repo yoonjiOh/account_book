@@ -36,6 +36,9 @@ module.exports = {
         ebony: "#060B11",
         lightGray: "#060B1020",
 
+        // gray 계통
+        regentGray: "#87929C",
+
         // red 계통
         coralRed: "#FF3C3C",
       },
