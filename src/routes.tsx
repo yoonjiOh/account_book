@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Root from "./Root";
+import Root from "./App";
 import { NotFound, RegisterAsset, Home, AssetDetail } from "@/pages";
 
 const routes = createBrowserRouter([
