@@ -4,11 +4,11 @@
  * 스타일링 코드 생산성을 위해 Tailwind CSS 를 사용합니다.
  * TailwindCSS 의 기본 단위는 Rem 인데, figma 기준으로 pixel 단위로 작업을 하기 때문에 pixel 단위로 변경해주는 작업이 필요합니다.
  */
- const px0_100 = { ...Array.from(Array(101)).map((_, i) => `${i}px`) };
- const px0_500 = { ...Array.from(Array(501)).map((_, i) => `${i}px`) };
- const px0_1000 = { ...Array.from(Array(1001)).map((_, i) => `${i}px`) };
- const px0_2000 = { ...Array.from(Array(2001)).map((_, i) => `${i}px`) };
- 
+const px0_100 = { ...Array.from(Array(101)).map((_, i) => `${i}px`) };
+const px0_500 = { ...Array.from(Array(501)).map((_, i) => `${i}px`) };
+const px0_1000 = { ...Array.from(Array(1001)).map((_, i) => `${i}px`) };
+const px0_2000 = { ...Array.from(Array(2001)).map((_, i) => `${i}px`) };
+
 /* eslint-disable */
 module.exports = {
   // Tailwind class name 을 사용하는 모든 파일 경로를 담는다. 경로에 있는 파일들을 기준으로 최종 css 파일이 생성된다.
@@ -34,7 +34,6 @@ module.exports = {
       colors: {
         // black 계통
         ebony: "#060B11",
-        lightGray: "#060B1020",
 
         // gray 계통
         regentGray: "#87929C",

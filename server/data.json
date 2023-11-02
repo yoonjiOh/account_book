@@ -3,7 +3,7 @@
     {
       "id": 951,
       "name": "금",
-      "amount": 500000000,
+      "amount": 50000,
       "type": "ASSETS",
       "memo": ""
     },
@@ -16,17 +16,10 @@
     },
     {
       "name": "부동산",
-      "amount": 500000000,
+      "amount": 5000000,
       "type": "ASSETS",
       "memo": "",
       "id": 954
-    },
-    {
-      "name": "테스트자산1",
-      "amount": "100000",
-      "type": "ASSETS",
-      "memo": "두리두리",
-      "id": 955
     }
   ],
   "liabilities": [
@@ -34,13 +27,6 @@
       "id": 950,
       "name": "전세대출",
       "amount": -1000000,
-      "type": "LIABILITIES",
-      "memo": ""
-    },
-    {
-      "id": 952,
-      "name": "라이언에게 빌림",
-      "amount": -40000000,
       "type": "LIABILITIES",
       "memo": ""
     }
