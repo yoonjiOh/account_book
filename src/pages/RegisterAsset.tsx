@@ -82,10 +82,16 @@ const RegisterAsset: React.FC = () => {
     // 기존 데이터가 자산인지 부채인지 확인하고, 다른 api 를 호출합니다.
     // 수정하기 API 호출
     if (isEditMode) {
-      await updateAssetMutation.mutateAsync({
-        data: asset,
-        id: assetId as string,
-      });
+      // 기존 데이터 
+      const originalAssetType = assetQuery?.data?.type;
+      if (originalAssetType !== asset.type) {
+        alert('자산의 종류를 변경할 수 없습니다.')
+      } else {
+        await updateAssetMutation.mutateAsync({
+          data: asset,
+          id: assetId as string,
+        });
+      }
     } else {
       // 자산 (자산, 부채) 등록 API 호출
       await createAsssetMutation.mutateAsync({ data: asset });
