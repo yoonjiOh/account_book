@@ -10,7 +10,6 @@ interface ArcodionSummaryProps {
 /**
  *
  * 아코디언 상단 요약 컴포넌트입니다.
- * 향후 아코디언 상단 요약 기획이 다양해지면 children으로 받아서 렌더링하는 방식으로 변경해야 합니다.
  * @param {ArcodionSummaryProps}
  * @returns
  */
