@@ -53,9 +53,11 @@ const RegisterAsset: React.FC = () => {
     };
 
     visualViewport?.addEventListener("resize", handleViewportChanges);
+    visualViewport?.addEventListener("scroll", handleViewportChanges);
 
     return () => {
       visualViewport?.removeEventListener("resize", handleViewportChanges);
+      visualViewport?.removeEventListener("scroll", handleViewportChanges);
     };
   }, [submitButtonRef]);
 

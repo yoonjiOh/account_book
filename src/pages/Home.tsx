@@ -76,7 +76,7 @@ const Divider = () => (
 );
 
 const ThickDivider = () => (
-  <div className="h-full w-full bg-lightGray">
+  <div className="h-15 w-full bg-lightGray">
     <div className="h-15"></div>
   </div>
 );
