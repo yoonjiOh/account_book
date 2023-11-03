@@ -19,6 +19,9 @@
 
 <br />
 
+### Lighthouse 
+<img width="1314" alt="Screen Shot 2023-11-03 at 6 03 18 PM" src="https://github.com/yoonjiOh/account_book/assets/58655520/251175fa-cb35-4261-8087-4c89497fadb0">
+
 ### 프로젝트 폴더 구조
 
 해당 프로젝트에서 풀어야 할 '자산 관리' 라는 도메인이 잘 보일 수 있도록 하는것이 목적인 폴더 구조입니다.
