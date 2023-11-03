@@ -1,8 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { homeLoader } from "@/pages/Home";
-import Home from "./pages/Home";
+import Home from "@/pages/Home";
+import PageSkeleton from "@/pages/PageSkeleton";
 
 export const RegisterAsset = lazy(
   async () => await import("@/pages/RegisterAsset"),
@@ -21,12 +22,38 @@ const routes = createBrowserRouter([
     element: <App />,
     errorElement: <ApiErrorBoundary />,
     children: [
-      { path: "/", element: <Home />, loader: homeLoader },
-      { path: "/register", element: <RegisterAsset /> },
-      { path: "/register/edit/:id", element: <RegisterAsset /> },
+      {
+        path: "/",
+        element: (
+          <Suspense fallback={<PageSkeleton />}>
+            <Home />
+          </Suspense>
+        ),
+        loader: homeLoader,
+      },
+      {
+        path: "/register",
+        element: (
+          <Suspense fallback={<PageSkeleton />}>
+            <RegisterAsset />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/register/edit/:id",
+        element: (
+          <Suspense fallback={<PageSkeleton />}>
+            <RegisterAsset />
+          </Suspense>
+        ),
+      },
       {
         path: "/detail/:type/:id",
-        element: <AssetDetail />,
+        element: (
+          <Suspense fallback={<PageSkeleton />}>
+            <AssetDetail />
+          </Suspense>
+        ),
       },
     ],
   },
