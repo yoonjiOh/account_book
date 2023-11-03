@@ -24,7 +24,7 @@ export const useDeleteAsset = (id: string, type: AssetType) => {
   const navigate = useNavigate();
 
   return useMutation({
-    onError: (_, __, context: any) => {},
+    onError: (_) => {},
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [KEY_MAP[type], id] });
       queryClient.invalidateQueries({ queryKey: [KEY_MAP[type]] });

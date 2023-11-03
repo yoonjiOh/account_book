@@ -19,7 +19,7 @@ export const useCreateAsset = () => {
 
   return useMutation({
     onMutate: async () => {},
-    onError: (_, __, context: any) => {},
+    onError: (_) => {},
     onSuccess: () => {
       // 자산 등록에 성공하면 자산 목록 페이지로 이동합니다.
       navigate("/");

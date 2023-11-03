@@ -1,12 +1,19 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import { RegisterAsset, Home, AssetDetail } from "@/pages";
+import { lazy } from "react";
 import { homeLoader } from "@/pages/Home";
-import { queryClient } from "@/lib/react-query";
-import { AssetDetailLoader } from "@/pages/AssetDetail";
-import { AssetType } from "./features/asset/type";
-import ApiErrorBoundary from "./features/ui/components/ApiErrorBoundary";
+import Home from "./pages/Home";
 
+export const RegisterAsset = lazy(
+  async () => await import("@/pages/RegisterAsset"),
+);
+export const NotFound = lazy(async () => await import("@/pages/NotFound"));
+export const AssetDetail = lazy(
+  async () => await import("@/pages/AssetDetail"),
+);
+export const ApiErrorBoundary = lazy(
+  async () => await import("@/features/ui/components/ApiErrorBoundary"),
+);
 
 const routes = createBrowserRouter([
   {
@@ -20,12 +27,6 @@ const routes = createBrowserRouter([
       {
         path: "/detail/:type/:id",
         element: <AssetDetail />,
-        loader: ({ params }) =>
-          AssetDetailLoader({
-            queryClient,
-            id: params.id as string,
-            type: params.type as AssetType,
-          }),
       },
     ],
   },

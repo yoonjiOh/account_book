@@ -7,34 +7,17 @@ import {
   TextButton,
   Title,
 } from "@/features/ui/components";
-import { getAssetQuery, useGetAsset } from "@/features/asset/api/getAsset";
+import { useGetAsset } from "@/features/asset/api/getAsset";
 import { ASSET_TYPE_NAME } from "@/features/asset/const";
 import { NumericFormat } from "react-number-format";
 import { MemoCTAButton } from "@/features/asset";
-import { QueryClient } from "@tanstack/react-query";
 import { useDeleteAsset } from "@/features/asset/api";
 import { AssetModel } from "@/features/asset/model";
 import { AssetType } from "@/features/asset/type";
 
-export const AssetDetailLoader = async ({
-  queryClient,
-  id,
-  type,
-}: {
-  queryClient: QueryClient;
-  id: string;
-  type: AssetType;
-}) => {
-  const query = getAssetQuery(id, type);
-
-  return (
-    queryClient.getQueryData(query.queryKey) ??
-    (await queryClient.fetchQuery(query))
-  );
-};
-
 const AssetDetail: React.FC = () => {
   const params = useParams();
+
   const [isOpenPopup, setIsOpenPopup] = useState(false);
 
   const navigate = useNavigate();
@@ -58,7 +41,6 @@ const AssetDetail: React.FC = () => {
   if (isLoading) return <div>loading...</div>;
   const { name, type, value, memo } = data as AssetModel;
 
-  console.log("여기까지 오는건가...", isLoading);
   return (
     <>
       <section className="flex flex-col items-center w-screen h-screen pt-88">

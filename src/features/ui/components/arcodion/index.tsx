@@ -1,5 +1,5 @@
-import ArcodionSummary from "./ArcodionSummary";
-import ArcodionSummaryDetail from "./ArcodionDetail";
+import ArcodionSummary from "@/features/ui/components/arcodion/ArcodionSummary";
+import ArcodionSummaryDetail from "@/features/ui/components/arcodion/ArcodionDetail";
 
 interface ArcodioMainProps {
   children: React.ReactNode;

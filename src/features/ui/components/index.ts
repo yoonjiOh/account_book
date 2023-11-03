@@ -12,7 +12,7 @@ export { default as TextButton } from "@/features/ui/components/buttons/TextButt
 export { default as RoundButton } from "@/features/ui/components/buttons/RoundButton";
 export { default as NavigationButton } from "@/features/ui/components/buttons/NavigationButton";
 
-export { Arcodion } from "@/features/ui/components/Arcodion";
+export { Arcodion } from "@/features/ui/components/arcodion";
 export { default as AlertPopup } from "@/features/ui/components/AlertPopup";
 export { default as Fallback } from "@/features/ui/components/Fallback";
 export { default as ErrorBoundary } from "@/features/ui/components/ErrorBoundary";
