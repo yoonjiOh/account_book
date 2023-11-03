@@ -1,10 +1,7 @@
-import { NumericFormat } from "react-number-format";
-
 interface ArcodionSummaryProps {
   title: string;
-  value: number;
-  expandIcon?: React.ReactNode;
   onClick?: () => void;
+  children?: React.ReactNode;
 }
 
 /**
@@ -15,11 +12,9 @@ interface ArcodionSummaryProps {
  */
 const ArcodionSummary: React.FC<ArcodionSummaryProps> = ({
   title,
-  value,
-  expandIcon,
   onClick,
+  children,
 }) => {
-  // TODO) 내용은 asset 도메인으로 빼기
   return (
     <div
       className="px-24 pt-40 pb-16 flex items-center justify-between"
@@ -29,21 +24,7 @@ const ArcodionSummary: React.FC<ArcodionSummaryProps> = ({
       tabIndex={0}
       aria-label="펼치기">
       <span className="text-18 leading-26 align-middle">{title}</span>
-      <div className="flex items-center">
-        <NumericFormat
-          data-testid="readonly-input-for-asset-summary"
-          className="w-full outline-none text-18 leading-26 font-bold text-end"
-          thousandSeparator=","
-          suffix="원"
-          value={value}
-          readOnly={true}
-        />
-        <div
-          data-testid="arcodion-expand-button"
-          className="flex items-center ml-6">
-          {expandIcon}
-        </div>
-      </div>
+      {children}
     </div>
   );
 };

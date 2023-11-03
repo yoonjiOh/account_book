@@ -5,6 +5,7 @@ import { AssetSummaryItem } from "@/features/asset";
 import { AssetModel } from "@/features/asset/model";
 import { AssetType } from "@/features/asset/type";
 import { ASSET_TYPE_NAME } from "@/features/asset/const";
+import { NumericFormat } from "react-number-format";
 
 interface AssetSummaryArcodionProps {
   type: AssetType;
@@ -27,12 +28,24 @@ const AssetSummaryArcodion: React.FC<AssetSummaryArcodionProps> = ({
 
   return (
     <Arcodion>
-      <Arcodion.ArcodionSummary
-        title={ASSET_TYPE_NAME[type]}
-        value={totalValue}
-        onClick={onClick}
-        expandIcon={<ArrowToggleIcon direction={isExpanded ? "up" : "down"} />}
-      />
+      <Arcodion.ArcodionSummary title={ASSET_TYPE_NAME[type]} onClick={onClick}>
+        <div className="flex items-center">
+          <NumericFormat
+            data-testid="readonly-input-for-asset-summary"
+            className="w-full outline-none text-18 leading-26 font-bold text-end"
+            thousandSeparator=","
+            suffix="원"
+            value={totalValue}
+            readOnly={true}
+          />
+          <div
+            data-testid="arcodion-expand-button"
+            className="flex items-center ml-6">
+            <ArrowToggleIcon direction={isExpanded ? "up" : "down"} />
+          </div>
+        </div>
+      </Arcodion.ArcodionSummary>
+
       <Arcodion.ArcodionDetail isExpanded={isExpanded}>
         {data?.map((item) => {
           return <AssetSummaryItem key={item.id} type={type} asset={item} />;
