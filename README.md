@@ -11,6 +11,9 @@
   yarn dev // SPA 실행
   yarn storybook // 스토리북 확인
   yarn test // 테스트
+  yarn build // 빌드
+  yarn preview // 빌드한것을 로컬에서 확인. server 구동을 미리 해야 합니다.
+
 
 ```
 
