@@ -1,16 +1,12 @@
 import { AssetResponseDto } from "@/features/asset/dto/response";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 
 import { axios } from "@/lib/axios";
 
 import { AssetModel, mapToAssetModel } from "@/features/asset/model";
-import { AssetType } from "../type";
+import { AssetType } from "@/features/asset/type";
+import { KEY_MAP } from "./key";
 import { assetValidFilter } from "../util";
-
-const KEY_MAP = {
-  [AssetType.ASSETS]: "assets",
-  [AssetType.LIABILITIES]: "liabilities",
-};
 
 export const getAssets = async (type: AssetType): Promise<AssetModel[]> => {
   const url = type === AssetType.ASSETS ? "/assets" : "/liabilities";

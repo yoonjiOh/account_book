@@ -70,7 +70,7 @@ const RegisterAsset: React.FC = () => {
   // isEditMode 일 경우에만 assetId 를 통해 asset 을 조회합니다.
   const assetQuery = isEditMode && assetId ? useGetAsset(assetId, type) : null;
 
-  const createAsssetMutation = useCreateAsset();
+  const createAsssetMutation = useCreateAsset(type);
   const updateAssetMutation = useUpdateAsset(
     assetId as string,
     type as AssetType,
@@ -82,10 +82,10 @@ const RegisterAsset: React.FC = () => {
     // 기존 데이터가 자산인지 부채인지 확인하고, 다른 api 를 호출합니다.
     // 수정하기 API 호출
     if (isEditMode) {
-      // 기존 데이터 
+      // 기존 데이터
       const originalAssetType = assetQuery?.data?.type;
       if (originalAssetType !== asset.type) {
-        alert('자산의 종류를 변경할 수 없습니다.')
+        alert("자산의 종류를 변경할 수 없습니다.");
       } else {
         await updateAssetMutation.mutateAsync({
           data: asset,
@@ -99,14 +99,6 @@ const RegisterAsset: React.FC = () => {
   };
 
   if (isEditMode && assetQuery?.isLoading) return <div>loading...</div>;
-
-  if (updateAssetMutation.error) {
-    return (
-      <div className="w-screen text-center flex justfiy-center">
-        {updateAssetMutation.error.message}
-      </div>
-    );
-  }
 
   const title = isEditMode ? "기타자산 수정" : "기타자산 등록";
   return (

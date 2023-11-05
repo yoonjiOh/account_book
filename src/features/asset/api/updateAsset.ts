@@ -1,15 +1,11 @@
 import { AssetModel } from "@/features/asset/model";
 import { UpdateAssetRequestDTO } from "@/features/asset/dto/request";
 import { queryClient } from "@/lib/react-query";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation } from "react-query";
 import { axios } from "@/lib/axios";
 import { useNavigate } from "react-router-dom";
-import { AssetType } from "../type";
-
-const KEY_MAP = {
-  [AssetType.ASSETS]: "asset",
-  [AssetType.LIABILITIES]: "liability",
-};
+import { AssetType } from "@/features/asset/type";
+import { KEY_MAP } from "@/features/asset/api";
 
 export const updateAsset = ({
   data,
